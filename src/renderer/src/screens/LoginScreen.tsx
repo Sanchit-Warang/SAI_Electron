@@ -13,7 +13,7 @@ const LoginScreen = () => {
         <CardTitle>Login</CardTitle>
       </CardHeader>
       <CardContent>
-        <LoginForm/>
+        <LoginForm />
       </CardContent>
     </Card>
   );

@@ -11,6 +11,28 @@ type Donor = {
   __v: number;
 };
 
+type Donation = {
+  accountantSubmissionDate: string;
+  amount: number;
+  bank: string;
+  branch: string;
+  chequeDate: string;
+  chequeNo: string;
+  clearanceDate: string;
+  createdAt: string;
+  dateOfIssue: string;
+  depositBank: string;
+  depositDate: string;
+  donorId: string;
+  eightyG: string;
+  remark: string;
+  donations?: Donation[];
+  submissionDate: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+};
+
 type User = {
   email: string;
   name: string;
@@ -18,4 +40,4 @@ type User = {
   user_id: string;
 };
 
-export type { Donor, User };
+export type { Donor, User, Donation };

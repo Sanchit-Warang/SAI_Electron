@@ -6,11 +6,37 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@renderer/components/ui/navigation-menu";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
+import { Button } from "@renderer/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  // const canGoBack = navigate && navigate.canGoBack;
+  // const canGoForward = navigate && navigate.canGoForward;
   return (
-    <nav className="p-4 sticky top-0 w-full flex h-[7vh] px-10 justify-between border-b bg-primary">
-      <div></div>
+    <nav
+      className="p-4 sticky top-0 w-full flex items-center
+     h-[7vh] px-10 justify-between border-b bg-primary"
+    >
+      <div className="space-x-1">
+        <Button
+          // disabled={canGoBack}
+          variant="outline"
+          size="icon"
+          onClick={() => navigate(-1)}
+        >
+          <ChevronLeftIcon className="" />
+        </Button>
+        <Button
+          // disabled={canGoForward}
+          variant="outline"
+          size="icon"
+          onClick={() => navigate(1)}
+        >
+          <ChevronRightIcon className="" />
+        </Button>
+      </div>
       <div className="flex space-x-5">
         <NavigationMenu>
           <NavigationMenuList>

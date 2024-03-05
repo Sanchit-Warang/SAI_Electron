@@ -1,5 +1,5 @@
 import { cn } from "@renderer/lib/utils";
-import { Donor } from "@renderer/types";
+import { Donation } from "@renderer/types";
 import { Link } from "react-router-dom";
 // import {
 //   Avatar,
@@ -7,15 +7,18 @@ import { Link } from "react-router-dom";
 //   AvatarImage,
 // } from "@renderer/components/ui/avatar";
 
-type DonorListItemProps = {
+type DonationListItemProps = {
   className?: string;
-  donor: Donor;
+  donation: Donation;
 };
 
-const DonorListItem = ({ className = "", donor }: DonorListItemProps) => {
+const DonationListItem = ({
+  className = "",
+  donation,
+}: DonationListItemProps) => {
   return (
     <Link
-      to={`/donors/${donor._id}`}
+      to={`/donations/${donation._id}`}
       className={cn("flex items-center p-0 space-x-2 py-2 px-2", className)}
     >
       {/* <Avatar>
@@ -23,13 +26,13 @@ const DonorListItem = ({ className = "", donor }: DonorListItemProps) => {
         <AvatarFallback>CN</AvatarFallback>
       </Avatar> */}
       <div>
-        <p className="text-lg">{donor.name}</p>
+        <p className="text-lg">{donation.amount}</p>
         <div className="flex text-md font-medium text-muted-foreground">
-          {`Birth Date: ${donor.birthDate} • Email: ${donor.email} • Contact: ${donor.contactNo} • Identification no: ${donor.identificationNo}`}
+          {donation.chequeNo}
         </div>
       </div>
     </Link>
   );
 };
 
-export default DonorListItem;
+export default DonationListItem;

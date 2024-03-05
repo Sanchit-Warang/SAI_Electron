@@ -3,20 +3,24 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
-  createHashRouter
+  createHashRouter,
 } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import Providers from "./providers";
-import HomeScreen from "./screens/HomeScreen";
+import DonorListScreen from "./screens/DonorListScreen";
 import LoginScreen from "./screens/LoginScreen";
+import DonorScreen from "./screens/DonorScreen";
+import DonationScreen from "./screens/DonationScreen";
 
 const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<LoginScreen />} />
-      <Route path="/users" element={<HomeScreen />} />
+      <Route path="/donors" element={<DonorListScreen />} />
+      <Route path="/donors/:donorId" element={<DonorScreen />} />
+      <Route path="/donations/:donationId" element={<DonationScreen />} />
     </Route>,
   ),
 );

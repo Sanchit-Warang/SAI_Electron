@@ -31,9 +31,10 @@ const LoginForm = () => {
       password: "abc123ABC!@#",
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await loginMutation.mutateAsync(values);
-    navigate("/users");
+    navigate("/donors");
   }
   return (
     <>
