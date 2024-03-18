@@ -13,6 +13,7 @@ import DonorListScreen from "./screens/DonorListScreen";
 import LoginScreen from "./screens/LoginScreen";
 import DonorScreen from "./screens/DonorScreen";
 import DonationScreen from "./screens/DonationScreen";
+import DonationListScreen from "./screens/DonationListScreen";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createHashRouter(
       <Route index={true} path="/" element={<LoginScreen />} />
       <Route path="/donors" element={<DonorListScreen />} />
       <Route path="/donors/:donorId" element={<DonorScreen />} />
+      <Route path="/donations" element={<DonationListScreen />} />
       <Route path="/donations/:donationId" element={<DonationScreen />} />
     </Route>,
   ),

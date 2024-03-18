@@ -9,6 +9,7 @@ import {
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { Button } from "@renderer/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -70,12 +71,14 @@ const Navbar = () => {
               <NavigationMenuContent>
                 <NavigationMenuLink>
                   <div className="p-3 clasName w-[200px]">
-                    <div className="rounded-md hover:bg-muted/40 p-2">
-                      <div className="font-bold text-sm">Donations List</div>
-                      <p className="text-muted-foreground text-xs">
-                        See the list of all donations
-                      </p>
-                    </div>
+                    <Link to="/donations">
+                      <div className="rounded-md hover:bg-muted/40 p-2">
+                        <div className="font-bold text-sm">Donations List</div>
+                        <p className="text-muted-foreground text-xs">
+                          See the list of all donations
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </NavigationMenuLink>
               </NavigationMenuContent>

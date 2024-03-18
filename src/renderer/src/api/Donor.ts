@@ -1,7 +1,7 @@
 import { API } from "./api";
-import { Donor, Donation } from "@renderer/types";
+import { Donor } from "@renderer/types";
 
-const getDonors = async (
+export const getDonors = async (
   queryParams: { name?: string; identificationNo?: string } = {},
 ) => {
   const queryParamsString = new URLSearchParams(queryParams).toString();
@@ -9,10 +9,11 @@ const getDonors = async (
   return data as Donor[];
 };
 
-const getDonor = async (donorId: string) => {
-  const { data }: { data: { donor: Donor[]; donations: Donation[] } } =
-    await API(`api/app/getDonor/${donorId}`);
-  return { donor: data.donor[0], donations: data.donations };
+export const getDonor = async (donorId: string) => {
+  const { data } = await API(`api/app/getDonor/${donorId}`);
+  return data as Donor;
 };
 
-export { getDonors, getDonor };
+export const createDonor = async (donor: Partial<Donor>) => {
+  return await API.post("api/app/donor", donor);
+};

@@ -12,8 +12,7 @@ const DonorScreen = () => {
     if (DonorData.data) {
       return (
         <DonorDetails
-          donor={DonorData.data.donor}
-          donations={DonorData.data.donations}
+          donor={DonorData.data}
         />
       );
     } else if (DonorData.isLoading) {

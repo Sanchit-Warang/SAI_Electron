@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@renderer/components/ui/card";
-import LoginForm from "@renderer/components/LoginForm";
+import LoginForm from "@renderer/components/Auth/LoginForm";
 
 const LoginScreen = () => {
   return (

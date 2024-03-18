@@ -1,9 +1,16 @@
 import { API } from "./api";
-import { Donation } from "@renderer/types";
+import { Donation,DonationFormData } from "@renderer/types";
 
-const getDonation = async (donationId: string) => {
-  const { data } = await API(`api/app/getDonation/${donationId}`);
+export const getDonation = async (donationId: string) => {
+  const { data } = await API(`api/app/donations/${donationId}`);
   return data as Donation;
 };
 
-export { getDonation };
+export const getDonations = async () => {
+  const { data } = await API("api/app/donations");
+  return data as Donation[];
+};
+
+export const createDonation = async (donation: Partial<DonationFormData>) => {
+  return await API.post("api/app/donation", donation);
+};

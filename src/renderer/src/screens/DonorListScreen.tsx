@@ -4,6 +4,7 @@ import { useGetDonorsQuery } from "@renderer/hooks/api/donorApi";
 import { Button } from "@renderer/components/ui/button";
 import { LoadingSpinner } from "@renderer/components/ui/loadingSpinner";
 import { Link } from "react-router-dom";
+import AddDonorModal from "@renderer/components/Donor/AddDonorModal";
 import { useDebouncedState } from "@mantine/hooks";
 
 const DonorListScreen = () => {
@@ -27,7 +28,7 @@ const DonorListScreen = () => {
         />
       );
     }
-    return <>{'No Results'}</>;
+    return <>{"No Results"}</>;
   };
 
   return (
@@ -52,6 +53,9 @@ const DonorListScreen = () => {
       <Link to="/">
         <Button className="bg-primary w-[6rem]">Button</Button>
       </Link>
+      <div className="flex justify-start">
+        <AddDonorModal />
+      </div>
       {donorListJSX()}
     </div>
   );

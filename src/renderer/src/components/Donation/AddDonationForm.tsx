@@ -1,0 +1,127 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { z } from "zod";
+import { Button } from "@renderer/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@renderer/components/ui/form";
+import { Input } from "@renderer/components/ui/input";
+import { useCreateDonationMutation } from "@renderer/hooks/api/donationApi";
+// import { useNavigate } from "react-router-dom";
+
+const dataSchema = z.object({
+  donorId: z.string(),
+  amount: z.string(),
+  chequeNo: z.string(),
+  chequeDate: z.string(), // Adjusted to specify Date type
+  bank: z.string(),
+  branch: z.string(),
+  depositDate: z.string(), // Adjusted to specify Date type
+  clearanceDate: z.string(), // Adjusted to specify Date type
+  depositBank: z.string(),
+  eightyG: z.string(),
+  dateOfIssue: z.string(), // Adjusted to specify Date type
+  submissionDate: z.string(), // Adjusted to specify Date type
+  remark: z.string(),
+  AccountantSubmissionDate: z.string(), // Adjusted to specify Date type
+});
+
+type Props = {
+  donorId: string;
+};
+
+const AddDonationForm = ({ donorId }: Props) => {
+  const createDonationMutaion = useCreateDonationMutation(donorId);
+
+  //   const navigate = useNavigate();
+  // Initialize form with default values and schema validation
+  const form = useForm<z.infer<typeof dataSchema>>({
+    resolver: zodResolver(dataSchema),
+    defaultValues: {
+      donorId: donorId,
+      amount: "0",
+      chequeNo: "",
+      chequeDate: "", // Default value set to current date
+      bank: "",
+      branch: "",
+      depositDate: "", // Default value set to current date
+      clearanceDate: "", // Default value set to current date
+      depositBank: "",
+      eightyG: "80G",
+      dateOfIssue: "", // Default value set to current date
+      submissionDate: "", // Default value set to current date
+      remark: "",
+      AccountantSubmissionDate: "", // Default value set to current date
+    },
+  });
+
+  // Handle form submission
+  async function onSubmit(values: z.infer<typeof dataSchema>) {4
+    // Perform registration logic here
+    console.log("Submitted values:", values);
+    await createDonationMutaion.mutateAsync({
+      ...values,
+      amount: Number(values.amount),
+    });
+    // Redirect or perform other actions after successful submission
+  }
+
+  return (
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {Object.keys(dataSchema.shape).map((key) => (
+            <FormField
+              key={key}
+              control={form.control}
+              name={key as keyof typeof dataSchema.shape}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{key}</FormLabel>
+                  <FormControl>
+                    <Input
+                      required
+                      type={
+                        key.includes("Date") || key.includes("date")
+                          ? "date"
+                          : key === "amount"
+                            ? "number"
+                            : "text"
+                      }
+                      className="bg-muted/20"
+                      placeholder={key}
+                      value={field.value.toString()}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            <>
+              {form.formState.isSubmitting ? (
+                <>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                  Submitting
+                </>
+              ) : (
+                <>Submit</>
+              )}
+            </>
+          </Button>
+        </form>
+      </Form>
+    </>
+  );
+};
+
+export default AddDonationForm;

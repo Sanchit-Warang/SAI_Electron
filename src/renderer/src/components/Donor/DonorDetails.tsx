@@ -1,12 +1,12 @@
-import { Donation, Donor } from "@renderer/types";
+import { Donor } from "@renderer/types";
 import DonationList from "../Donation/DonationList";
+import AddDonationModal from "../Donation/AddDonationModal";
 
 type DonorDetailsProps = {
   donor: Donor;
-  donations: Donation[];
 };
 
-const DonorDetails = ({ donor, donations }: DonorDetailsProps) => {
+const DonorDetails = ({ donor }: DonorDetailsProps) => {
   return (
     <>
       <div>Name: {donor.name}</div>
@@ -15,7 +15,8 @@ const DonorDetails = ({ donor, donations }: DonorDetailsProps) => {
       <div>Contact No: {donor.contactNo}</div>
       <div>Address: {donor.address}</div>
       <div>Identification No: {donor.identificationNo}</div>
-      <DonationList donations={donations}/>
+      {donor.donations && <DonationList donations={donor.donations} />}
+      <AddDonationModal donorId={donor._id} />
     </>
   );
 };
