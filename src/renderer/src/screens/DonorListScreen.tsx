@@ -1,9 +1,9 @@
 import SearchInput from "@renderer/components/ui/SearchInput";
 import DonorList from "@renderer/components/Donor/DonorList";
 import { useGetDonorsQuery } from "@renderer/hooks/api/donorApi";
-import { Button } from "@renderer/components/ui/button";
+
 import { LoadingSpinner } from "@renderer/components/ui/loadingSpinner";
-import { Link } from "react-router-dom";
+
 import AddDonorModal from "@renderer/components/Donor/AddDonorModal";
 import { useDebouncedState } from "@mantine/hooks";
 
@@ -22,42 +22,50 @@ const DonorListScreen = () => {
       return <>Error</>;
     } else if (donors.data) {
       return (
-        <DonorList
-          className=" my-5 divide-y border-2 rounded-md scrollbar scrollbar-thumb-primary scrollbar-track-primary/20 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
-          donors={donors.data}
-        />
+        <>
+          <p>{donors.data.length} donors</p>
+          <DonorList
+            className="my-2 divide-y border-2 rounded-md scrollbar scrollbar-thumb-primary scrollbar-track-primary/20 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+            donors={donors.data}
+          />
+        </>
       );
     }
     return <>{"No Results"}</>;
   };
 
   return (
-    <div className="md:w-full  lg:w-[60%]  mx-auto border-x-2 pt-7 h-[93vh] p-3 flex flex-col ">
-      <SearchInput
-        placeholder="Search Name"
-        className="w-[50%]"
-        defaultValue={queryName}
-        onChange={(e) => {
-          setQueryName(e.target.value);
-        }}
-      />
-      <SearchInput
-        placeholder="Search Identification number"
-        className="w-[50%]"
-        type="number"
-        defaultValue={queryNumber}
-        onChange={(e) => {
-          setQueryNumber(e.target.value.toString());
-        }}
-      />
-      <Link to="/">
-        <Button className="bg-primary w-[6rem]">Button</Button>
-      </Link>
-      <div className="flex justify-start">
-        <AddDonorModal />
+    <>
+      <div className="h-[100vh] w-full py-10  flex flex-col ">
+        <div className="flex gap-10">
+          <SearchInput
+            placeholder="Search Name"
+            className="w-[30%] bg-card"
+            defaultValue={queryName}
+            onChange={(e) => {
+              setQueryName(e.target.value);
+            }}
+          />
+          <SearchInput
+            placeholder="Search Identification number"
+            className="w-[30%] bg-card"
+            type="text"
+            defaultValue={queryNumber}
+            onChange={(e) => {
+              setQueryNumber(e.target.value.toString());
+            }}
+          />
+        </div>
+
+        <div className="my-2 text-2xl font-semibold">
+          <p>Donor List</p>
+        </div>
+        {donorListJSX()}
+        <div className="flex justify-start mt-4">
+          <AddDonorModal />
+        </div>
       </div>
-      {donorListJSX()}
-    </div>
+    </>
   );
 };
 

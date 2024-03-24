@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { UseGetDonationQuery } from "@renderer/hooks/api/donationApi";
+import ThanksLetterModal from "@renderer/components/Certificates/ThanksLetterModal";
 const DonationScreen = () => {
   const { donationId } = useParams();
   let donationIdString = "";
@@ -30,16 +31,13 @@ const DonationScreen = () => {
           <p>Date of Issue: {donation.data.dateOfIssue}</p>
           <p>Deposit Bank: {donation.data.depositBank}</p>
           <p>Deposit Date: {donation.data.depositDate}</p>
-          {typeof donation.data.donorId === "string" ? (
-            <p>Donor Id: {donation.data.donorId}</p>
-          ) : (
-            <></>
-          )}
+          <p>Donor Name:{donation.data.donorId?.name}</p>
           <p>Eighty G: {donation.data.eightyG}</p>
           <p>Remark: {donation.data.remark}</p>
           <p>Submission Date: {donation.data.submissionDate}</p>
           <p>Updated At: {donation.data.updatedAt}</p>
         </div>
+        <ThanksLetterModal donation={donation.data} />
       </div>
     );
   }
