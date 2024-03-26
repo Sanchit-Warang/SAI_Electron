@@ -16,12 +16,17 @@ const DialogClose = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ ...props }, ref) => (
-  <DialogPrimitive.Close id="closeDialog" ref={ref} {...props} />
+  <DialogPrimitive.Close className="closeDialog" ref={ref} {...props} />
 ));
 DialogClose.displayName = DialogPrimitive.Title.displayName;
 
 const dialogClose = () => {
-  document.getElementById("closeDialog")?.click();
+  const closeButtons = document.querySelectorAll(".closeDialog");
+  closeButtons.forEach((button) => {
+    if (button instanceof HTMLButtonElement) {
+      button.click();
+    }
+  });
 };
 
 const DialogOverlay = React.forwardRef<

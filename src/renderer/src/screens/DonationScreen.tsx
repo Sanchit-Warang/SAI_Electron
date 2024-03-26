@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { UseGetDonationQuery } from "@renderer/hooks/api/donationApi";
 import ThanksLetterModal from "@renderer/components/Certificates/ThanksLetterModal";
+import ReceiptModal from "@renderer/components/Certificates/ReceiptModal";
 const DonationScreen = () => {
   const { donationId } = useParams();
   let donationIdString = "";
@@ -37,7 +38,10 @@ const DonationScreen = () => {
           <p>Submission Date: {donation.data.submissionDate}</p>
           <p>Updated At: {donation.data.updatedAt}</p>
         </div>
-        <ThanksLetterModal donation={donation.data} />
+        <div className="flex gap-4">
+          <ThanksLetterModal donation={donation.data} />
+          <ReceiptModal donation={donation.data} />
+        </div>
       </div>
     );
   }

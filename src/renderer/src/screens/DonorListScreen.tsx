@@ -62,7 +62,7 @@ const DonorListScreen = () => {
         </div>
         {donorListJSX()}
         <div className="flex justify-start mt-4">
-          <AddDonorModal />
+          <AddDonorModal name={queryName}/>
         </div>
       </div>
     </>

@@ -4,6 +4,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { z } from "zod";
 import { Button } from "@renderer/components/ui/button";
 import { useCreateDonorMutation } from "@renderer/hooks/api/donorApi";
+import {AddDonorModalProps as AddDonorFormProps} from "./AddDonorModal";
 
 import {
   Form,
@@ -28,7 +29,7 @@ const donorSchema = z.object({
   identificationNo: z.string(),
 });
 
-const AddDonorForm = () => {
+const AddDonorForm = ({name}: AddDonorFormProps) => {
   //   const navigate = useNavigate();
 
   const createDonorMutation = useCreateDonorMutation();
@@ -37,7 +38,7 @@ const AddDonorForm = () => {
   const form = useForm<z.infer<typeof donorSchema>>({
     resolver: zodResolver(donorSchema),
     defaultValues: {
-      name: "",
+      name: name,
       birthDate: "",
       email: "",
       contactNo: "",

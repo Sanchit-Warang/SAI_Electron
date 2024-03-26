@@ -2,25 +2,33 @@ import Modal from "../ui/Modal";
 import ThanksLetterForm from "./ThanksLetterForm";
 import { Button } from "../ui/button";
 import { Donation } from "@renderer/types";
+import { cn } from "@renderer/lib/utils";
 
 type Props = {
   donation: Donation;
+  className?: string;
 };
 
-const ThanksLetterModal = ({ donation }: Props) => {
+const ThanksLetterModal = ({ donation, className = "" }: Props) => {
   return (
-    <Modal
-      trigger={<Button className="bg-primary w-[6rem]">Thanks Letter</Button>}
-    >
-      {donation.donorId && (
-        <ThanksLetterForm
-          id={donation.donorId._id}
-          name={donation.donorId.name}
-          address={donation.donorId.address}
-          amount={donation.amount}
-        />
-      )}
-    </Modal>
+    <div>
+      <Modal
+        trigger={
+          <Button className={cn("bg-primary w-[6rem]", className)}>
+            Thanks Letter
+          </Button>
+        }
+      >
+        {donation.donorId && (
+          <ThanksLetterForm
+            id={donation.donorId._id}
+            name={donation.donorId.name}
+            address={donation.donorId.address}
+            amount={donation.amount}
+          />
+        )}
+      </Modal>
+    </div>
   );
 };
 
