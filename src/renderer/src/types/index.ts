@@ -14,7 +14,7 @@ type Donor = {
 
 
 type Donation = {
-  accountantSubmissionDate: string;
+  AccountantSubmissionDate: string;
   amount: number;
   bank: string;
   branch: string;
@@ -36,7 +36,7 @@ type Donation = {
 };
 
 export type DonationFormData = {
-  accountantSubmissionDate: string;
+  AccountantSubmissionDate: string;
   amount: number;
   bank: string;
   branch: string;

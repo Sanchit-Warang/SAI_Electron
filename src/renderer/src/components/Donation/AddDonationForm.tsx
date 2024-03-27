@@ -12,24 +12,45 @@ import {
   FormMessage,
 } from "@renderer/components/ui/form";
 import { Input } from "@renderer/components/ui/input";
-import { useCreateDonationMutation } from "@renderer/hooks/api/donationApi";
+// import { useCreateDonationMutation } from "@renderer/hooks/api/donationApi";
+import { cn } from "@renderer/lib/utils";
+import { Calendar } from "@renderer/components/ui/calender";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@renderer/components/ui/popover";
 // import { useNavigate } from "react-router-dom";
 
 const dataSchema = z.object({
   donorId: z.string(),
   amount: z.string(),
   chequeNo: z.string(),
-  chequeDate: z.string(), // Adjusted to specify Date type
+  chequeDate: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
   bank: z.string(),
   branch: z.string(),
-  depositDate: z.string(), // Adjusted to specify Date type
-  clearanceDate: z.string(), // Adjusted to specify Date type
+  depositDate: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
+  clearanceDate: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
   depositBank: z.string(),
   eightyG: z.string(),
-  dateOfIssue: z.string(), // Adjusted to specify Date type
-  submissionDate: z.string(), // Adjusted to specify Date type
+  dateOfIssue: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
+  submissionDate: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
   remark: z.string(),
-  AccountantSubmissionDate: z.string(), // Adjusted to specify Date type
+  AccountantSubmissionDate: z.date({
+    required_error: "A date of birth is required.",
+  }), // Adjusted to specify Date type
 });
 
 type Props = {
@@ -37,7 +58,7 @@ type Props = {
 };
 
 const AddDonationForm = ({ donorId }: Props) => {
-  const createDonationMutaion = useCreateDonationMutation(donorId);
+  // const createDonationMutaion = useCreateDonationMutation(donorId);
 
   //   const navigate = useNavigate();
   // Initialize form with default values and schema validation
@@ -47,28 +68,29 @@ const AddDonationForm = ({ donorId }: Props) => {
       donorId: donorId,
       amount: "0",
       chequeNo: "",
-      chequeDate: "", // Default value set to current date
+      chequeDate: new Date(), // Default value set to current date
       bank: "",
       branch: "",
-      depositDate: "", // Default value set to current date
-      clearanceDate: "", // Default value set to current date
+      depositDate: new Date(), // Default value set to current date
+      clearanceDate: new Date(), // Default value set to current date
       depositBank: "",
       eightyG: "80G",
-      dateOfIssue: "", // Default value set to current date
-      submissionDate: "", // Default value set to current date
+      dateOfIssue: new Date(), // Default value set to current date
+      submissionDate: new Date(), // Default value set to current date
       remark: "",
-      AccountantSubmissionDate: "", // Default value set to current date
+      AccountantSubmissionDate: new Date(), // Default value set to current date
     },
   });
 
   // Handle form submission
-  async function onSubmit(values: z.infer<typeof dataSchema>) {4
+  async function onSubmit(values: z.infer<typeof dataSchema>) {
+    4;
     // Perform registration logic here
     console.log("Submitted values:", values);
-    await createDonationMutaion.mutateAsync({
-      ...values,
-      amount: Number(values.amount),
-    });
+    // await createDonationMutaion.mutateAsync({
+    //   ...values,
+    //   amount: Number(values.amount),
+    // });
     // Redirect or perform other actions after successful submission
   }
 
@@ -76,36 +98,79 @@ const AddDonationForm = ({ donorId }: Props) => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {Object.keys(dataSchema.shape).map((key) => (
-            <FormField
-              key={key}
-              control={form.control}
-              name={key as keyof typeof dataSchema.shape}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{key}</FormLabel>
-                  <FormControl>
-                    <Input
-                      required
-                      type={
-                        key.includes("Date") || key.includes("date")
-                          ? "date"
-                          : key === "amount"
-                            ? "number"
-                            : "text"
-                      }
-                      className="bg-muted/20"
-                      placeholder={key}
-                      value={field.value.toString()}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
+          {Object.keys(dataSchema.shape).map((key) => {
+            if (key.includes("Date") || key.includes("date")) {
+              return (
+                <FormField
+                  key={key}
+                  control={form.control}
+                  name={key as keyof typeof dataSchema.shape}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{key}</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-[240px] pl-3 text-left font-normal bg-muted/20 w-full hover:bg-muted/20 ",
+                                !field.value && "text-muted-foreground",
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            captionLayout="dropdown-buttons"
+                            fromYear={new Date().getFullYear() - 100}
+                            toYear={new Date().getFullYear()}
+                            // selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => date > new Date()}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              );
+            }
+            return (
+              <FormField
+                key={key}
+                control={form.control}
+                name={key as keyof typeof dataSchema.shape}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{key}</FormLabel>
+                    <FormControl>
+                      <Input
+                        required
+                        type={key === "amount" ? "number" : "text"}
+                        className="bg-muted/20"
+                        placeholder={key}
+                        value={field.value.toString()}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+          })}
           <Button disabled={form.formState.isSubmitting} type="submit">
             <>
               {form.formState.isSubmitting ? (

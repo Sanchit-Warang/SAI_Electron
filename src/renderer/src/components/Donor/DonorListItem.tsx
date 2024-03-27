@@ -36,7 +36,7 @@ const DonorListItem = ({ className = "", donor }: DonorListItemProps) => {
         </div> */}
       {/* </Link> */}
       <td className="py-3">{donor.name}</td>
-      <td>{donor.birthDate}</td>
+      <td>{new Date(donor.birthDate).toLocaleDateString()}</td>
       <td>{donor.email}</td>
       <td>{donor.contactNo}</td>
       <td>{donor.identificationNo}</td>

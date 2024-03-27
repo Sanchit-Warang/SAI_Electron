@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 // import { useDownloadThanksLetterMutation } from "@renderer/hooks/api/certificate";
-import { useDownloadreceiptMutation } from "@renderer/hooks/api/certificate";
+// import { useDownloadreceiptMutation } from "@renderer/hooks/api/certificate";
+import { useDownloadEightyGMutation } from "@renderer/hooks/api/certificate";
 
 import { Button } from "@renderer/components/ui/button";
 import {
@@ -16,18 +17,8 @@ import {
 } from "@renderer/components/ui/form";
 import { Input } from "@renderer/components/ui/input";
 import { Donation } from "@renderer/types";
-// import { convertTimestampToYYYYMMDD } from "@renderer/lib/utilfunc";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@renderer/components/ui/popover";
-import { cn } from "@renderer/lib/utils";
-import { Calendar } from "@renderer/components/ui/calender";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
 
-const ReceiptFormSchema = z.object({
+const EightyGFormSchema = z.object({
   donorId: z.string(),
   name: z.string(),
   email: z.string().email(),
@@ -37,23 +28,20 @@ const ReceiptFormSchema = z.object({
   address: z.string(),
   identificationNo: z.string(),
   amount: z.string(),
-  bank: z.string(),
-  branch: z.string(),
-  clearanceDate: z.date(),
-  chequeNo: z.string(),
 });
 
-export type ReceiptFormSchemaType = z.infer<typeof ReceiptFormSchema>;
+export type EightyGFormSchemaType = z.infer<typeof EightyGFormSchema>;
 
-type ReceiptFormProps = {
+type EightyGFormProps = {
   donation: Donation;
 };
 
-const ReceiptForm = ({ donation }: ReceiptFormProps) => {
+const EightyGForm = ({ donation }: EightyGFormProps) => {
   //   const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
-  const downloadReceiptMutation = useDownloadreceiptMutation();
-  const form = useForm<z.infer<typeof ReceiptFormSchema>>({
-    resolver: zodResolver(ReceiptFormSchema),
+  //   const downloadReceiptMutation = useDownloadreceiptMutation();
+  const downloadEightyGMutation = useDownloadEightyGMutation();
+  const form = useForm<z.infer<typeof EightyGFormSchema>>({
+    resolver: zodResolver(EightyGFormSchema),
     defaultValues: {
       donorId: donation.donorId?._id,
       name: donation.donorId?.name,
@@ -62,17 +50,14 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
       address: donation.donorId?.address,
       identificationNo: donation.donorId?.identificationNo,
       amount: donation.amount.toString(),
-      bank: donation.bank,
-      branch: donation.branch,
-      clearanceDate: new Date(donation.clearanceDate),
-      chequeNo: donation.chequeNo,
     },
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof ReceiptFormSchema>) {
+  async function onSubmit(values: z.infer<typeof EightyGFormSchema>) {
     console.log(values);
-    await downloadReceiptMutation.mutateAsync(values);
+    // await downloadReceiptMutation.mutateAsync(values);
+    await downloadEightyGMutation.mutateAsync(values);
   }
 
   return (
@@ -159,87 +144,6 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="bank"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Bank</FormLabel>
-              <FormControl>
-                <Input className="bg-muted/20" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="branch"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Branch</FormLabel>
-              <FormControl>
-                <Input className="bg-muted/20" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="clearanceDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Clearance Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal bg-muted/20 w-full hover:bg-muted/20 ",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    captionLayout="dropdown-buttons"
-                    fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="chequeNo"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cheque No</FormLabel>
-              <FormControl>
-                <Input className="bg-muted/20" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button disabled={form.formState.isSubmitting} type="submit">
           <>
             {form.formState.isSubmitting ? (
@@ -247,7 +151,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
               </>
             ) : (
-              <>Download Receipt</>
+              <>Download 80G</>
             )}
           </>
         </Button>
@@ -256,4 +160,4 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
   );
 };
 
-export default ReceiptForm;
+export default EightyGForm;

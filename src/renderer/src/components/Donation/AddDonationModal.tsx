@@ -1,6 +1,6 @@
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
-import AddDonationForm from "./AddDonationForm";
+import AddDonationForm from "./AddDonationForm2";
 
 type Props = {
   donorId: string;

@@ -4,7 +4,16 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { z } from "zod";
 import { Button } from "@renderer/components/ui/button";
 import { useCreateDonorMutation } from "@renderer/hooks/api/donorApi";
-import {AddDonorModalProps as AddDonorFormProps} from "./AddDonorModal";
+import { AddDonorModalProps as AddDonorFormProps } from "./AddDonorModal";
+import { cn } from "@renderer/lib/utils";
+import { Calendar } from "@renderer/components/ui/calender";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@renderer/components/ui/popover";
 
 import {
   Form,
@@ -20,7 +29,9 @@ import { Input } from "@renderer/components/ui/input";
 // Define the schema for the Donor type
 const donorSchema = z.object({
   name: z.string(),
-  birthDate: z.string(),
+  birthDate: z.date({
+    required_error: "A date of birth is required.",
+  }),
   email: z.string().email(),
   contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
     message: "Invalid contact number format",
@@ -29,7 +40,7 @@ const donorSchema = z.object({
   identificationNo: z.string(),
 });
 
-const AddDonorForm = ({name}: AddDonorFormProps) => {
+const AddDonorForm = ({ name }: AddDonorFormProps) => {
   //   const navigate = useNavigate();
 
   const createDonorMutation = useCreateDonorMutation();
@@ -39,7 +50,7 @@ const AddDonorForm = ({name}: AddDonorFormProps) => {
     resolver: zodResolver(donorSchema),
     defaultValues: {
       name: name,
-      birthDate: "",
+      birthDate: new Date("2024-03-02T00:00:00.000Z"),
       email: "",
       contactNo: "",
       address: "",
@@ -50,8 +61,11 @@ const AddDonorForm = ({name}: AddDonorFormProps) => {
   // Handle form submission
   async function onSubmit(values: z.infer<typeof donorSchema>) {
     // Perform registration logic here
-    console.log("Submitted values:", values);
-    await createDonorMutation.mutateAsync(values);
+    // console.log("Submitted values:", values.birthDate.toISOString());
+    await createDonorMutation.mutateAsync({
+      ...values,
+      birthDate: values.birthDate.toISOString(),
+    });
     // navigate("/login"); // Redirect after successful registration
   }
 
@@ -80,16 +94,40 @@ const AddDonorForm = ({name}: AddDonorFormProps) => {
             control={form.control}
             name="birthDate"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Birth Date</FormLabel>
-                <FormControl>
-                  <Input
-                    className="bg-muted/20"
-                    type="date"
-                    placeholder="Birth Date"
-                    {...field}
-                  />
-                </FormControl>
+              <FormItem className="flex flex-col">
+                <FormLabel>Date of birth</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal bg-muted/20 w-full hover:bg-muted/20 ",
+                          !field.value && "text-muted-foreground",
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown-buttons"
+                      fromYear={new Date().getFullYear() - 100}
+                      toYear={new Date().getFullYear()}
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date > new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
