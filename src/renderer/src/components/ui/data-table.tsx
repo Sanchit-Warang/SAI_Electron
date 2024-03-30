@@ -41,6 +41,7 @@ interface DataTableProps<TData, TValue> {
     key: string;
     name: string;
   }[];
+  route?: string;
 }
 
 function hasId<T>(obj: T): obj is T & { _id: string } {
@@ -52,6 +53,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   filters = [],
+  route = "",
 }: DataTableProps<TData, TValue>) {
   const navigate = useNavigate();
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -154,7 +156,13 @@ export function DataTable<TData, TValue>({
                   )}
                   onClick={() => {
                     if (row.original && hasId(row.original)) {
-                      navigate((row.original as TData & { _id: string })._id);
+                      if (route !== "") {
+                        navigate(
+                          `/${route}/${(row.original as TData & { _id: string })._id}`,
+                        );
+                      } else {
+                        navigate((row.original as TData & { _id: string })._id);
+                      }
                     }
                   }}
                   key={row.id}

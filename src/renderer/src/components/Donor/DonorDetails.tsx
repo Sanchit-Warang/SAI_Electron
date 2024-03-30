@@ -1,7 +1,7 @@
 import { Donor } from "@renderer/types";
 import AddDonationModal from "../Donation/AddDonationModal";
 import { DataTable } from "../ui/data-table";
-import { columns } from "../Donation/DonationTable/columns";
+import { columns, filters } from "../Donation/DonationTable/columns";
 import { Card } from "../ui/card";
 
 type DonorDetailsProps = {
@@ -27,7 +27,12 @@ const DonorDetails = ({ donor }: DonorDetailsProps) => {
         <div className="space-y-2">
           <p className="text-xl font-semibold">{`${donor.name}'`}s Donations</p>
           <Card className="p-6">
-            <DataTable columns={columns} data={donor.donations} />
+            <DataTable
+              route="donations"
+              columns={columns}
+              filters={filters}
+              data={donor.donations}
+            />
           </Card>
         </div>
       )}
