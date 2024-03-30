@@ -81,12 +81,12 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
     await createDonationMutation.mutateAsync({
       ...values,
       amount: Number(values.amount),
-      chequeDate: values.chequeDate.toISOString(),
-      depositDate: values.depositDate.toISOString(),
-      clearanceDate: values.clearanceDate.toISOString(),
-      dateOfIssue: values.dateOfIssue.toISOString(),
-      submissionDate: values.submissionDate.toISOString(),
-      AccountantSubmissionDate: values.AccountantSubmissionDate.toISOString(),
+      chequeDate: values.chequeDate,
+      depositDate: values.depositDate,
+      clearanceDate: values.clearanceDate,
+      dateOfIssue: values.dateOfIssue,
+      submissionDate: values.submissionDate,
+      AccountantSubmissionDate: values.AccountantSubmissionDate,
     });
     console.log(values);
   }

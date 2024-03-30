@@ -16,7 +16,7 @@ const NavItem = ({ to, icon }: NavItemProps) => {
     <Button
       className={cn(
         " h-12 w-12 p-2",
-        location.pathname.includes(to)
+        location.pathname.includes(to) 
           ? "bg-foreground text-muted hover:bg-foreground hover:text-muted"
           : "bg-muted",
       )}

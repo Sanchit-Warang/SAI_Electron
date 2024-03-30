@@ -3,10 +3,10 @@ import { Button } from "../ui/button";
 import AddDonorForm from "./AddDonorForm";
 
 export type AddDonorModalProps = {
-  name: string;
+  name?: string;
 }
 
-const AddDonorModal = ({name}: AddDonorModalProps) => {
+const AddDonorModal = ({name =''}: AddDonorModalProps) => {
   return (
     <Modal
       trigger={<Button className="bg-primary w-[6rem]">Add Donor</Button>}

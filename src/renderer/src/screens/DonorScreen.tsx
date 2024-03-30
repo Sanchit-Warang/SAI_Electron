@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetDonorQuery } from "@renderer/hooks/api/donorApi";
 import DonorDetails from "@renderer/components/Donor/DonorDetails";
+import { LoadingSpinner } from "@renderer/components/ui/loadingSpinner";
 const DonorScreen = () => {
   const { donorId } = useParams();
   let donorIdString = "";
@@ -10,23 +11,15 @@ const DonorScreen = () => {
   const DonorData = useGetDonorQuery(donorIdString);
   const donorDetailsJSX = () => {
     if (DonorData.data) {
-      return (
-        <DonorDetails
-          donor={DonorData.data}
-        />
-      );
+      return <DonorDetails donor={DonorData.data} />;
     } else if (DonorData.isLoading) {
-      return "Loading ....";
+      return <LoadingSpinner className={"my-5 mx-auto"} />;
     } else {
       return "Error";
     }
   };
 
-  return (
-    <div className="md:w-full  lg:w-[60%]  mx-auto border-x-2 pt-7 h-[93vh] p-3">
-      {donorDetailsJSX()}
-    </div>
-  );
+  return <div className="w-full py-10">{donorDetailsJSX()}</div>;
 };
 
 export default DonorScreen;

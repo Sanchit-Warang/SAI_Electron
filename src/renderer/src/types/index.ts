@@ -1,57 +1,56 @@
 type Donor = {
   _id: string;
   name: string;
-  birthDate: string;
+  birthDate: Date;
   email: string;
   contactNo: string;
   address: string;
   identificationNo: string;
   donations?: Donation[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   __v: number;
 };
 
-
 type Donation = {
-  AccountantSubmissionDate: string;
+  AccountantSubmissionDate: Date;
   amount: number;
   bank: string;
   branch: string;
-  chequeDate: string;
+  chequeDate: Date;
   chequeNo: string;
-  clearanceDate: string;
-  createdAt: string;
-  dateOfIssue: string;
+  clearanceDate: Date;
+  createdAt: Date;
+  dateOfIssue: Date;
   depositBank: string;
-  depositDate: string;
+  depositDate: Date;
   donorId?: Donor;
   eightyG: string;
   remark: string;
   // donations?: Donation[];
-  submissionDate: string;
-  updatedAt: string;
+  submissionDate: Date;
+  updatedAt: Date;
   __v: number;
   _id: string;
 };
 
 export type DonationFormData = {
-  AccountantSubmissionDate: string;
+  AccountantSubmissionDate: Date;
   amount: number;
   bank: string;
   branch: string;
-  chequeDate: string;
+  chequeDate: Date;
   chequeNo: string;
-  clearanceDate: string;
-  createdAt: string;
-  dateOfIssue: string;
+  clearanceDate: Date;
+  createdAt: Date;
+  dateOfIssue: Date;
   depositBank: string;
-  depositDate: string;
-  donorId: string
+  depositDate: Date;
+  donorId: string;
   eightyG: string;
   remark: string;
-  submissionDate: string;
-}
+  submissionDate: Date;
+};
 
 type User = {
   email: string;

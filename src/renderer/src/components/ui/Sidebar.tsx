@@ -6,7 +6,7 @@ import { ReceiptIndianRupee } from "lucide-react";
 
 const Sidebar = () => {
   return (
-    <div className="h-[100%] bg-primary sticky p-2">
+    <div className="h-[100%] bg-primary sticky p-2 ">
       <BackForwardNav />
       <div className="my-10 space-y-5 flex flex-col items-center">
         <NavItem icon={<Gauge />} to="/dashboard" />

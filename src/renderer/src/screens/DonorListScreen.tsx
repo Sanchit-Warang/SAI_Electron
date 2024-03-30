@@ -1,19 +1,21 @@
-import SearchInput from "@renderer/components/ui/SearchInput";
-import DonorList from "@renderer/components/Donor/DonorList";
+// import DonorList from "@renderer/components/Donor/DonorList";
 import { useGetDonorsQuery } from "@renderer/hooks/api/donorApi";
+import { Card } from "@renderer/components/ui/card";
+import { DataTable } from "@renderer/components/ui/data-table";
+import {
+  columns,
+  filters,
+} from "@renderer/components/Donor/Donor Table/columns";
 
 import { LoadingSpinner } from "@renderer/components/ui/loadingSpinner";
 
 import AddDonorModal from "@renderer/components/Donor/AddDonorModal";
-import { useDebouncedState } from "@mantine/hooks";
+// import { useDebouncedState } from "@mantine/hooks";
 
 const DonorListScreen = () => {
-  const [queryName, setQueryName] = useDebouncedState("", 200);
-  const [queryNumber, setQueryNumber] = useDebouncedState("", 200);
-  const donors = useGetDonorsQuery({
-    name: queryName,
-    identificationNo: queryNumber,
-  });
+  // const [queryName, setQueryName] = useDebouncedState("", 200);
+  // const [queryNumber, setQueryNumber] = useDebouncedState("", 200);
+  const donors = useGetDonorsQuery({});
 
   const donorListJSX = () => {
     if (donors.isLoading) {
@@ -23,11 +25,10 @@ const DonorListScreen = () => {
     } else if (donors.data) {
       return (
         <>
-          <p>{donors.data.length} donors</p>
-          <DonorList
-            className="my-2 divide-y border-2 rounded-md scrollbar scrollbar-thumb-primary scrollbar-track-primary/20 scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
-            donors={donors.data}
-          />
+          <div className="flex"></div>
+          <Card className="p-6">
+            <DataTable columns={columns} filters={filters} data={donors.data} />
+          </Card>
         </>
       );
     }
@@ -38,7 +39,7 @@ const DonorListScreen = () => {
     <>
       <div className="h-[100vh] w-full py-10  flex flex-col ">
         <div className="flex gap-10">
-          <SearchInput
+          {/* <SearchInput
             placeholder="Search Name"
             className="w-[30%] bg-card"
             defaultValue={queryName}
@@ -54,16 +55,14 @@ const DonorListScreen = () => {
             onChange={(e) => {
               setQueryNumber(e.target.value.toString());
             }}
-          />
+          /> */}
         </div>
 
-        <div className="my-2 text-2xl font-semibold">
-          <p>Donor List</p>
+        <div className="my-2 text-2xl font-semibold flex gap-2">
+          <p>Donor List</p> <AddDonorModal />
         </div>
         {donorListJSX()}
-        <div className="flex justify-start mt-4">
-          <AddDonorModal name={queryName}/>
-        </div>
+        <div className="flex justify-start "></div>
       </div>
     </>
   );

@@ -50,7 +50,7 @@ const AddDonorForm = ({ name }: AddDonorFormProps) => {
     resolver: zodResolver(donorSchema),
     defaultValues: {
       name: name,
-      birthDate: new Date("2024-03-02T00:00:00.000Z"),
+      birthDate: new Date(),
       email: "",
       contactNo: "",
       address: "",
@@ -64,7 +64,7 @@ const AddDonorForm = ({ name }: AddDonorFormProps) => {
     // console.log("Submitted values:", values.birthDate.toISOString());
     await createDonorMutation.mutateAsync({
       ...values,
-      birthDate: values.birthDate.toISOString(),
+      birthDate: values.birthDate,
     });
     // navigate("/login"); // Redirect after successful registration
   }
