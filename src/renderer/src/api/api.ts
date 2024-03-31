@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "@renderer/zustand/authStore";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "http://184.72.105.85:4000",
   // baseURL: "https://sai-hosting.onrender.com",
 });
 

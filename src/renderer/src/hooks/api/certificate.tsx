@@ -4,7 +4,8 @@ import { dialogClose } from "@renderer/components/ui/dialog";
 import {
   downloadThanksLetter,
   downloadReceipt,
-  downloadEightyG
+  downloadEightyG,
+  emailThanksLetter
 } from "@renderer/api/Certificate";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -63,6 +64,20 @@ export const useDownloadEightyGMutation = () => {
       a.click();
       window.URL.revokeObjectURL(url);
       toast.success("Download succesfully");
+      dialogClose();
+    },
+    onError: (data: AxiosError) => {
+      toast.error(JSON.stringify(data.response?.data));
+    },
+  });
+};
+
+
+export const useEmailThanksLetterMutation = () => {
+  return useMutation({
+    mutationFn: emailThanksLetter,
+    onSuccess: async (response: AxiosResponse) => {
+      toast.success("Your", response.data);
       dialogClose();
     },
     onError: (data: AxiosError) => {
