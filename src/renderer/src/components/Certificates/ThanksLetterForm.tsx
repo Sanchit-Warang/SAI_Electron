@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useDownloadThanksLetterMutation } from "@renderer/hooks/api/certificate";
+import {
+  useDownloadThanksLetterMutation,
+  useEmailThanksLetterMutation,
+} from "@renderer/hooks/api/certificate";
+import { useState } from "react";
 
 import { Button } from "@renderer/components/ui/button";
 import {
@@ -20,6 +24,7 @@ const formSchema = z.object({
   donorName: z.string(),
   donorAddress: z.string(),
   donationAmount: z.number(),
+  email: z.string().email(),
   type: z.enum(
     [
       "educationalSupport",
@@ -38,6 +43,7 @@ type ThanksLetterFormProps = {
   id: string;
   address: string;
   amount: number;
+  donorEmail: string;
 };
 
 const ThanksLetterForm = ({
@@ -45,8 +51,11 @@ const ThanksLetterForm = ({
   id,
   address,
   amount,
+  donorEmail,
 }: ThanksLetterFormProps) => {
   const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
+  const emailThanksLetterMutation = useEmailThanksLetterMutation();
+  const [email, setEmail] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,6 +63,7 @@ const ThanksLetterForm = ({
       donorName: name,
       donorAddress: address,
       donationAmount: amount,
+      email: donorEmail,
       type: "educationalSupport",
     },
   });
@@ -69,12 +79,28 @@ const ThanksLetterForm = ({
     };
     const { type, ...rest } = values;
     choices[type] = true;
-    // console.log({ ...rest, donorId: id, ...choices });
-    await downloadThanksLetterMutation.mutateAsync({
+
+    console.log({
       ...rest,
       donorId: id,
       ...choices,
     });
+    if (email === true) {
+      await emailThanksLetterMutation.mutateAsync({
+        ...rest,
+        donorId: id,
+        ...choices,
+      });
+      console.log("email");
+    } else {
+      await downloadThanksLetterMutation.mutateAsync({
+        ...rest,
+        donorId: id,
+        ...choices,
+      });
+      console.log("download");
+    }
+    setEmail(false);
   }
 
   return (
@@ -101,6 +127,19 @@ const ThanksLetterForm = ({
               <FormLabel>Donor Address</FormLabel>
               <FormControl>
                 <Input className="bg-muted/20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" className="bg-muted/20" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -173,17 +212,38 @@ const ThanksLetterForm = ({
             </FormItem>
           )}
         />
-        <Button disabled={form.formState.isSubmitting} type="submit">
-          <>
-            {form.formState.isSubmitting ? (
-              <>
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
-              </>
-            ) : (
-              <>Download Thanks Letter</>
-            )}
-          </>
-        </Button>
+        <div className="flex gap-2">
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            <>
+              {form.formState.isSubmitting ? (
+                <>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                  Submitting
+                </>
+              ) : (
+                <>Download Thanks Letter</>
+              )}
+            </>
+          </Button>
+          <Button
+            disabled={form.formState.isSubmitting}
+            onClick={() => {
+              setEmail(true);
+            }}
+            type="submit"
+          >
+            <>
+              {form.formState.isSubmitting ? (
+                <>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                  Submitting
+                </>
+              ) : (
+                <>Email ThanksLetter</>
+              )}
+            </>
+          </Button>
+        </div>
       </form>
     </Form>
   );

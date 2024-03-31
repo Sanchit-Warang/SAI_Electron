@@ -9,7 +9,7 @@ type Props = {
 const AddDonationModal = ({donorId}: Props) => {
   return (
     <Modal
-      trigger={<Button className="bg-primary w-[6rem]">Add Donation</Button>}
+      trigger={<Button className="px-1 bg-primary w-[6rem]">Add Donation</Button>}
     >
       <AddDonationForm donorId={donorId}/>
     </Modal>

@@ -59,4 +59,17 @@ type User = {
   user_id: string;
 };
 
+export type HighestDonation = {
+  _id: string;
+  highestAmount: number;
+}
+
+export type DashboardData = {
+  totalDonors: number;
+  totalDonations: number;
+  highestDonation: HighestDonation[];
+  totalAmountCollected: number;
+}
+
+
 export type { Donor, User, Donation };

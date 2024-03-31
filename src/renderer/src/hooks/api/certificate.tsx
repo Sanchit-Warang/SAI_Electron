@@ -77,7 +77,7 @@ export const useEmailThanksLetterMutation = () => {
   return useMutation({
     mutationFn: emailThanksLetter,
     onSuccess: async (response: AxiosResponse) => {
-      toast.success("Your", response.data);
+      toast.success("Emailed", response.data);
       dialogClose();
     },
     onError: (data: AxiosError) => {

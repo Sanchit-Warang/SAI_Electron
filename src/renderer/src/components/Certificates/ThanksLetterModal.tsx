@@ -25,6 +25,7 @@ const ThanksLetterModal = ({ donation, className = "" }: Props) => {
             name={donation.donorId.name}
             address={donation.donorId.address}
             amount={donation.amount}
+            donorEmail={donation.donorId.email}
           />
         )}
       </Modal>

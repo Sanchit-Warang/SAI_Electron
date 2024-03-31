@@ -13,13 +13,33 @@ const DonorDetails = ({ donor }: DonorDetailsProps) => {
     <div className="space-y-5">
       <div className="space-y-2">
         <p className="text-xl font-semibold">Donor Details</p>
-        <Card className="p-5">
-          <div>Name: {donor.name}</div>
-          <div>BirthDate: {new Date(donor.birthDate).toLocaleDateString()}</div>
-          <div>Email: {donor.email}</div>
-          <div>Contact No: {donor.contactNo}</div>
-          <div>Address: {donor.address}</div>
-          <div>Identification No: {donor.identificationNo}</div>
+        <Card className="p-5 space-y-3">
+          <div className="grid grid-cols-3 gap-3 items-center justify-center">
+            <div>
+              <span className="font-semibold text-lg">Name: </span>
+              {donor.name}
+            </div>
+            <div>
+              <span className="font-semibold text-lg">BirthDate: </span>
+              {new Date(donor.birthDate).toLocaleDateString()}
+            </div>
+            <div>
+              <span className="font-semibold text-lg">Email: </span>
+              {donor.email}
+            </div>
+            <div>
+              <span className="font-semibold text-lg">Contact No: </span>
+              {donor.contactNo}
+            </div>
+            <div>
+              <span className="font-semibold text-lg">Address: </span>
+              {donor.address}
+            </div>
+            <div>
+              <span className="font-semibold text-lg">Identification No: </span>
+              {donor.identificationNo}
+            </div>
+          </div>
           <AddDonationModal donorId={donor._id} />
         </Card>
       </div>

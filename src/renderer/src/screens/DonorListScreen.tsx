@@ -37,7 +37,7 @@ const DonorListScreen = () => {
 
   return (
     <>
-      <div className="h-[100vh] w-full py-10  flex flex-col ">
+      <div className=" w-full py-10  flex flex-col ">
         <div className="flex gap-10">
           {/* <SearchInput
             placeholder="Search Name"

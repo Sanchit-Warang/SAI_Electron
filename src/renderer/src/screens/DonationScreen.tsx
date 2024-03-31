@@ -4,6 +4,8 @@ import ThanksLetterModal from "@renderer/components/Certificates/ThanksLetterMod
 import ReceiptModal from "@renderer/components/Certificates/ReceiptModal";
 import EightyGModal from "@renderer/components/Certificates/EightyGModal";
 import { LoadingSpinner } from "@renderer/components/ui/loadingSpinner";
+import { Card } from "@renderer/components/ui/card";
+
 const DonationScreen = () => {
   const { donationId } = useParams();
   let donationIdString = "";
@@ -19,47 +21,76 @@ const DonationScreen = () => {
     return <>Error</>;
   } else if (donation.data) {
     return (
-      <div className="md:w-full  lg:w-[60%]  mx-auto border-x-2 pt-7 h-[93vh] p-3">
-        <div className="bg-gray-100 rounded-md p-4 mb-4">
-          <p className="font-bold">
-            Accountant Submission Date:{" "}
-            {new Date(donation.data.AccountantSubmissionDate).toLocaleDateString()}
-          </p>
-          <p>Amount: {donation.data.amount}</p>
-          <p>Bank: {donation.data.bank}</p>
-          <p>Branch: {donation.data.branch}</p>
+      <div className="w-full py-10">
+        <div className="my-2 text-2xl font-semibold flex gap-2">
+          <p>Donation Details</p>
+        </div>
+        <Card className=" p-4 mb-4 grid grid-cols-3 gap-3 ">
           <p>
-            Cheque Date:{" "}
+            <span className="font-semibold text-lg">
+              Accountant Submission Date:{" "}
+            </span>
+            {new Date(
+              donation.data.AccountantSubmissionDate,
+            ).toLocaleDateString()}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Amount: </span>
+            {donation.data.amount}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Bank: </span>
+            {donation.data.bank}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Branch: </span>
+            {donation.data.branch}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Cheque Date: </span>
             {new Date(donation.data.chequeDate).toLocaleDateString()}
           </p>
-          <p>Cheque No: {donation.data.chequeNo}</p>
           <p>
-            Clearance Date:{" "}
+            <span className="font-semibold text-lg">Cheque No: </span>
+            {donation.data.chequeNo}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Clearance Date: </span>
             {new Date(donation.data.clearanceDate).toLocaleDateString()}
           </p>
           <p>
-            Created At: {new Date(donation.data.createdAt).toLocaleDateString()}
+            <span className="font-semibold text-lg">Created At: </span>
+            {new Date(donation.data.createdAt).toLocaleDateString()}
           </p>
           <p>
-            Date of Issue:{" "}
+            <span className="font-semibold text-lg">Date of Issue: </span>
             {new Date(donation.data.dateOfIssue).toLocaleDateString()}
           </p>
-          <p>Deposit Bank: {donation.data.depositBank}</p>
           <p>
-            Deposit Date:{" "}
+            <span className="font-semibold text-lg">Deposit Bank: </span>
+            {donation.data.depositBank}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Deposit Date: </span>
             {new Date(donation.data.depositDate).toLocaleDateString()}
           </p>
-          <p>Donor Name:{donation.data.donorId?.name}</p>
-          <p>Eighty G: {donation.data.eightyG}</p>
-          <p>Remark: {donation.data.remark}</p>
           <p>
-            Submission Date:{" "}
+            <span className="font-semibold text-lg">Donor Name: </span>
+            {donation.data.donorId?.name}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Eighty G: </span>
+            {donation.data.eightyG}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Remark: </span>
+            {donation.data.remark}
+          </p>
+          <p>
+            <span className="font-semibold text-lg">Submission Date: </span>
             {new Date(donation.data.submissionDate).toLocaleDateString()}
           </p>
-          <p>
-            Updated At: {new Date(donation.data.updatedAt).toLocaleDateString()}
-          </p>
-        </div>
+        </Card>
         <div className="flex gap-4">
           <ThanksLetterModal donation={donation.data} />
           <ReceiptModal donation={donation.data} />
