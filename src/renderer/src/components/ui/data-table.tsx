@@ -46,6 +46,7 @@ interface DataTableProps<TData, TValue> {
 
 function hasId<T>(obj: T): obj is T & { _id: string } {
   // return (obj as T & { _id: string })._id === "string";
+  console.log(obj)
   return true;
 }
 
