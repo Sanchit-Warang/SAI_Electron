@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "@renderer/zustand/authStore";
+import { useNavigate } from "react-router-dom";
 
 const API = axios.create({
   baseURL: "http://54.159.151.154:4000",
@@ -13,4 +14,18 @@ API.interceptors.request.use(function (config) {
   }
   return config;
 });
+
+API.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.status === 401) {
+      const navigate = useNavigate();
+      useAuthStore.getState().logout();
+      navigate("/login");
+    }
+    return Promise.reject(error);
+  },
+);
 export { API };

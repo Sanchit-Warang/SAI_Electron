@@ -9,7 +9,7 @@ const DashboardScreen = () => {
       return <LoadingSpinner className={"my-5 mx-auto"} />;
     }
     if (dashboardDetails.error) {
-      return <div>{JSON.stringify(dashboardDetails.error)}</div>;
+      return <div>Error</div>;
     }
     if (dashboardDetails.data) {
       return (

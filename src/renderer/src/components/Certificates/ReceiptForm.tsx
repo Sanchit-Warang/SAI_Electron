@@ -71,7 +71,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof ReceiptFormSchema>) {
-    console.log(values);
+    // console.log(values);
     await downloadReceiptMutation.mutateAsync(values);
   }
 

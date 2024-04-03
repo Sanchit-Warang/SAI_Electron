@@ -88,7 +88,7 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
       submissionDate: values.submissionDate,
       AccountantSubmissionDate: values.AccountantSubmissionDate,
     });
-    console.log(values);
+    // console.log(values);
   }
 
   return (

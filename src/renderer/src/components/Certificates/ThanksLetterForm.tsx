@@ -80,25 +80,25 @@ const ThanksLetterForm = ({
     const { type, ...rest } = values;
     choices[type] = true;
 
-    console.log({
-      ...rest,
-      donorId: id,
-      ...choices,
-    });
+    // console.log({
+    //   ...rest,
+    //   donorId: id,
+    //   ...choices,
+    // });
     if (email === true) {
       await emailThanksLetterMutation.mutateAsync({
         ...rest,
         donorId: id,
         ...choices,
       });
-      console.log("email");
+      // console.log("email");
     } else {
       await downloadThanksLetterMutation.mutateAsync({
         ...rest,
         donorId: id,
         ...choices,
       });
-      console.log("download");
+      // console.log("download");
     }
     setEmail(false);
   }
