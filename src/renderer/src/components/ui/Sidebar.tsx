@@ -3,6 +3,7 @@ import NavItem from "./NavItem";
 import { User } from "lucide-react";
 import { Gauge } from "lucide-react";
 import { ReceiptIndianRupee } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 const Sidebar = () => {
   return (
@@ -12,6 +13,7 @@ const Sidebar = () => {
         <NavItem icon={<Gauge />} to="/dashboard" />
         <NavItem icon={<User />} to="/donors" />
         <NavItem icon={<ReceiptIndianRupee />} to="/donations" />
+        <NavItem icon={<LogOut />} signout={true} to="/login" />
       </div>
     </div>
   );

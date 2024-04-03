@@ -9,6 +9,7 @@ type AuthStore = {
 
 // Read user data from local storage, or set it to null if not found
 const initialUser = JSON.parse(localStorage.getItem("user") || "null");
+// console.log(initialUser);
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: initialUser, // Initialize user as null initially
@@ -16,8 +17,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
     localStorage.setItem("user", JSON.stringify(userData));
     set({ user: userData });
   },
-  logout:()=>{
+  logout: () => {
     localStorage.removeItem("user");
     set({ user: null });
-  }
+  },
 }));

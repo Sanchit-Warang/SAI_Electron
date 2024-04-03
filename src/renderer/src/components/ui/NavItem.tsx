@@ -1,14 +1,16 @@
 import { Button } from "./button";
-
+import { useAuthStore } from "@renderer/zustand/authStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@renderer/lib/utils";
 
 type NavItemProps = {
   to: string;
   icon: React.ReactNode;
+  signout?: boolean
 };
 
-const NavItem = ({ to, icon }: NavItemProps) => {
+const NavItem = ({ to, icon, signout = false }: NavItemProps) => {
+  const logout = useAuthStore((state) => state.logout);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,7 +22,14 @@ const NavItem = ({ to, icon }: NavItemProps) => {
           ? "bg-foreground text-muted hover:bg-foreground hover:text-muted"
           : "bg-muted",
       )}
-      onClick={() => navigate(to)}
+      onClick={() =>{
+        if(signout){
+          logout()
+          navigate('/login')
+        }else{
+        navigate(to)
+        }
+      }}
     >
       {icon}
     </Button>

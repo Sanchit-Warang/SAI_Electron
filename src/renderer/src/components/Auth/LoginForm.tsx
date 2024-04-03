@@ -27,8 +27,8 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "atharva.wagh@somaiya.edu",
-      password: "abc123ABC!@#",
+      email: "",
+      password: "",
     },
   });
 
