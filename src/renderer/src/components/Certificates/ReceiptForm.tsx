@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 // import { useDownloadThanksLetterMutation } from "@renderer/hooks/api/certificate";
-import { useDownloadreceiptMutation } from "@renderer/hooks/api/certificate";
+import { useDownloadreceiptMutation, useEmailReceiptMutation } from "@renderer/hooks/api/certificate";
+import { useState } from "react";
 
 import { Button } from "@renderer/components/ui/button";
 import {
@@ -52,6 +53,9 @@ type ReceiptFormProps = {
 const ReceiptForm = ({ donation }: ReceiptFormProps) => {
   //   const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
   const downloadReceiptMutation = useDownloadreceiptMutation();
+  const emailReceiptMutation = useEmailReceiptMutation();
+  const [email, setEmail] = useState(false)
+
   const form = useForm<z.infer<typeof ReceiptFormSchema>>({
     resolver: zodResolver(ReceiptFormSchema),
     defaultValues: {
@@ -72,7 +76,13 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof ReceiptFormSchema>) {
     // console.log(values);
-    await downloadReceiptMutation.mutateAsync(values);
+    // await downloadReceiptMutation.mutateAsync(values);
+    if(email === true) {
+      await emailReceiptMutation.mutateAsync(values);
+    } else {
+      await downloadReceiptMutation.mutateAsync(values);
+    }
+    setEmail(false);
   }
 
   return (
@@ -251,6 +261,24 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
             )}
           </>
         </Button>
+        <Button
+            disabled={form.formState.isSubmitting}
+            onClick={() => {
+              setEmail(true);
+            }}
+            type="submit"
+          >
+            <>
+              {form.formState.isSubmitting ? (
+                <>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                  Submitting
+                </>
+              ) : (
+                <>Email Receipt</>
+              )}
+            </>
+          </Button>
       </form>
     </Form>
   );

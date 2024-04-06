@@ -5,9 +5,11 @@ import {
   downloadThanksLetter,
   downloadReceipt,
   downloadEightyG,
-  emailThanksLetter
+  emailThanksLetter,
+  emailReceipt
 } from "@renderer/api/Certificate";
 import { AxiosError, AxiosResponse } from "axios";
+import { response } from "express";
 
 export const useDownloadThanksLetterMutation = () => {
   return useMutation({
@@ -85,3 +87,17 @@ export const useEmailThanksLetterMutation = () => {
     },
   });
 };
+
+
+export const useEmailReceiptMutation = () => {
+  return useMutation({
+    mutationFn: emailReceipt,
+    onSuccess: async (response: AxiosResponse) => {
+      toast.success("Receipt Emailed Successfully", response.data);
+      dialogClose();
+    },
+    onError: (data: AxiosError) => {
+      toast.error(JSON.stringify(data.response?.data));
+    }
+  })
+}

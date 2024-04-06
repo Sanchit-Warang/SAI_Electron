@@ -37,3 +37,7 @@ export const downloadEightyG = async (data: EightyGFormSchemaType) => {
 export const emailThanksLetter = async (data) => {
   return await API.post("api/doc/generate-email", data);
 };
+
+export const emailReceipt = async (data) => {
+  return await API.post("api/doc/generate-receipt-email", data);
+}

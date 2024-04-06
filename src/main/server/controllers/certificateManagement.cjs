@@ -306,7 +306,7 @@ const emailReceipt = asyncHandler(async(req, res, next) =>{
             ]
           });
     
-      res.status(200).send("Email Sent Successfully")
+      res.status(200).send("Receipt Email Sent Successfully")
     } catch (error) {
       console.error('Error Sending Email:', error)
       res.status(500).send('Internal Server Error')
