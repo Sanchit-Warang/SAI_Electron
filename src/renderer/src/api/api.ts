@@ -3,7 +3,7 @@ import { useAuthStore } from "@renderer/zustand/authStore";
 // import { useNavigate } from "react-router-dom";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "http://localhost:3000",
   // baseURL: "https://sai-hosting.onrender.com",
 });
 

@@ -8,5 +8,6 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
+    "no-unused-vars": "off",
   },
 };
