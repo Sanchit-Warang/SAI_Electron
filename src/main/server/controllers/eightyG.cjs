@@ -1,8 +1,9 @@
-const { signTwo } = require("../public/signTwo")
-const { incomeTaxWatermark } = require('../public/incomeTaxWatermark')
-const QrCode = require('qrcode')
+const { signTwo } = require("../public/signTwo");
+const { incomeTaxWatermark } = require('../public/incomeTaxWatermark');
+const QrCode = require('qrcode');
+const eightyGCSS = require('../public/eightyGCSS.cjs');
 
-const eightyG = async (output, data) => {
+const eightyG = async (data) => {
     const date = new Date().toDateString()
     const currentTime = new Date().toTimeString();
     const currentDateTime = `${currentTime} ${date}`;
@@ -18,6 +19,7 @@ const eightyG = async (output, data) => {
         <title>80 G Certificate</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <style>
+        <link rel="stylesheet" href="${eightyGCSS}">
             * {
                 font-family: 'Times New Roman', Times, serif;
                 margin: 0;
@@ -52,7 +54,6 @@ const eightyG = async (output, data) => {
                 z-index: 1;
                 size: cover;
             }
-            ${output}
         </style>
     </head>
     <body>

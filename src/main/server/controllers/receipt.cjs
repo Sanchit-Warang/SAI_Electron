@@ -1,8 +1,8 @@
 const { sign } = require('../public/images');
 const { newLogo } = require('../public/newLogo');
-const { signTwo } = require('../public/images')
+const { receiptCSS } = require('../public/receiptCSS.cjs');
 
-const receipt = async (output, data) => {
+const receipt = async (data) => {
     const date = new Date().toDateString();
     return `
     <!DOCTYPE html>
@@ -12,6 +12,7 @@ const receipt = async (output, data) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt Letter</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${receiptCSS}">
     <style>
         ul.tick-list li::before {
             content: "✔";
@@ -36,7 +37,6 @@ const receipt = async (output, data) => {
         border-color: black;
         border-width: 1px;
       }
-      ${output}
     </style>
 </head>
 <body>

@@ -93,11 +93,11 @@ const generateReceipt = asyncHandler(async (req, res, next) => {
     const data = req.body
 
     // Generate HTML content
-    const output = fs.readFileSync(
-        path.join(__dirname, 'receipt.css'),
-      'utf8'
-    )
-    const htmlContent = await receipt(output, data)
+    // const output = fs.readFileSync(
+    //     path.join(__dirname, 'receipt.css'),
+    //   'utf8'
+    // )
+    const htmlContent = await receipt(data)
 
     // Generate PDF with watermark using Puppeteer
     const pdfBuffer = await generatePDFWithWatermark(htmlContent)
@@ -142,11 +142,11 @@ const generateEightyG = asyncHandler(async (req, res, next) => {
     const data = req.body
 
     // Generate HTML content
-    const output = fs.readFileSync(
-        path.join(__dirname, 'eightyG.css'),
-      'utf8'
-    )
-    const htmlContent = await eightyG(output, data)
+    // const output = fs.readFileSync(
+    //     path.join(__dirname, 'eightyG.css'),
+    //   'utf8'
+    // )
+    const htmlContent = await eightyG(data)
 
     // Generate PDF with watermark using Puppeteer
     const pdfBuffer = await generatePDFWithWatermark(htmlContent)
@@ -208,8 +208,8 @@ const generateEmail = asyncHandler(async(req, res, next)=>{
       const data = await fetchDataFromServer(req.body)
   
       // Generate HTML content
-      const output = fs.readFileSync(path.join(__dirname, 'output.css'), 'utf8')
-      const htmlContent = await thanksLetter(output, data)
+      // const output = fs.readFileSync(path.join(__dirname, 'output.css'), 'utf8')
+      const htmlContent = await thanksLetter(data)
   
       // Generate PDF with watermark using Puppeteer
       const pdfBuffer = await generatePDFWithWatermark(htmlContent)
@@ -279,11 +279,11 @@ const emailReceipt = asyncHandler(async(req, res, next) =>{
       const data = req.body
   
       // Generate HTML content
-      const output = fs.readFileSync(
-          path.join(__dirname, 'receipt.css'),
-        'utf8'
-      )
-      const htmlContent = await receipt(output, data)
+      // const output = fs.readFileSync(
+      //     path.join(__dirname, 'receipt.css'),
+      //   'utf8'
+      // )
+      const htmlContent = await receipt(data)
   
       // Generate PDF with watermark using Puppeteer
       const pdfBuffer = await generatePDFWithWatermark(htmlContent)
@@ -351,11 +351,11 @@ const emailEightyG = asyncHandler(async(req, res, next) => {
     const data = req.body
 
     // Generate HTML content
-    const output = fs.readFileSync(
-        path.join(__dirname, 'eightyG.css'),
-      'utf8'
-    )
-    const htmlContent = await eightyG(output, data)
+    // const output = fs.readFileSync(
+    //     path.join(__dirname, 'eightyG.css'),
+    //   'utf8'
+    // )
+    const htmlContent = await eightyG(data)
 
     // Generate PDF with watermark using Puppeteer
     const pdfBuffer = await generatePDFWithWatermark(htmlContent)
