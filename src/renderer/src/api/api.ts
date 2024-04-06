@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useAuthStore } from "@renderer/zustand/authStore";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const API = axios.create({
-  baseURL: "http://54.159.151.154:4000",
+  baseURL: "http://localhost:4000/",
   // baseURL: "https://sai-hosting.onrender.com",
 });
 
@@ -21,9 +21,9 @@ API.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      const navigate = useNavigate();
+      // const navigate = useNavigate();
       useAuthStore.getState().logout();
-      navigate("/login");
+      // navigate("/login");
     }
     return Promise.reject(error);
   },
