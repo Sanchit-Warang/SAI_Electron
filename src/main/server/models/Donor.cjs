@@ -32,7 +32,7 @@ const donorSchema = new mongoose.Schema(
     },
     identificationNo: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
     },
   },
