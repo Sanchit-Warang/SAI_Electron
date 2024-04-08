@@ -252,7 +252,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
         />
         <Button disabled={form.formState.isSubmitting} type="submit">
           <>
-            {form.formState.isSubmitting ? (
+            {form.formState.isSubmitting && !email ? (
               <>
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
               </>
@@ -269,7 +269,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
             type="submit"
           >
             <>
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting && email ? (
                 <>
                   <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
                   Submitting

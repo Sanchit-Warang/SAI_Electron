@@ -3,7 +3,7 @@ const User = require('../models/User')
 
 const requireAuth = async (req, res, next) => {
 
-    const secret = process.env.USER_SECRET
+    const secret = import.meta.env.MAIN_VITE_USER_SECRET
 
     // verify auth
     const { authorization } = req.headers

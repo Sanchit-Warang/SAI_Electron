@@ -215,7 +215,7 @@ const ThanksLetterForm = ({
         <div className="flex gap-2">
           <Button disabled={form.formState.isSubmitting} type="submit">
             <>
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting && !email ? (
                 <>
                   <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
                   Submitting
@@ -233,7 +233,7 @@ const ThanksLetterForm = ({
             type="submit"
           >
             <>
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting && email ? (
                 <>
                   <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
                   Submitting

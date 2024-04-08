@@ -9,7 +9,6 @@ import {
   emailReceipt
 } from "@renderer/api/Certificate";
 import { AxiosError, AxiosResponse } from "axios";
-import { response } from "express";
 
 export const useDownloadThanksLetterMutation = () => {
   return useMutation({

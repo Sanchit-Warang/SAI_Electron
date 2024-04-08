@@ -198,8 +198,8 @@ const generateEmail = asyncHandler(async(req, res, next)=>{
       service: 'gmail',
       secure: false,
       auth: {
-        user: process.env.SENDER_EMAIL,
-        pass: process.env.PASSWORD
+        user: import.meta.env.MAIN_VITE_SENDER_EMAIL,
+        pass: import.meta.env.MAIN_VITE_PASSWORD
       },
     });
   
@@ -269,8 +269,8 @@ const emailReceipt = asyncHandler(async(req, res, next) =>{
           service: 'gmail',
           secure: false,
           auth: {
-            user: process.env.SENDER_EMAIL,
-            pass: process.env.PASSWORD
+            user: import.meta.env.MAIN_VITE_SENDER_EMAIL,
+            pass: import.meta.env.MAIN_VITE_PASSWORD
           },
         });
   
@@ -341,8 +341,8 @@ const emailEightyG = asyncHandler(async(req, res, next) => {
         service: 'gmail',
         secure: false,
         auth: {
-          user: process.env.SENDER_EMAIL,
-          pass: process.env.PASSWORD
+          user: import.meta.env.MAIN_VITE_SENDER_EMAIL,
+          pass: import.meta.env.MAIN_VITE_PASSWORD
         },
       });
 

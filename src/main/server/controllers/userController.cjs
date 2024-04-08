@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 
-const secret = process.env.USER_SECRET;
+const secret = import.meta.env.MAIN_VITE_USER_SECRET;
 
 const createToken = (_id) =>{
     return jwt.sign({_id}, secret, { expiresIn: '2d' });

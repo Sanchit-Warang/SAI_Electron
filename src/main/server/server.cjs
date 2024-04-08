@@ -11,7 +11,7 @@ const appRoutes = require("./routes/approutes");
 const authRoutes = require("./routes/auth");
 const docRoutes = require("./routes/generateDocRoutes");
 
-// console.log('Sanchit',process.env.MONGODB_URI)
+// console.log('Sanchit',import.meta.env.MONGODB_URI)
 
 //connect to db
 connectDB();

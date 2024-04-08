@@ -68,12 +68,12 @@ const receipt = async (data) => {
                 <span class="font-semibold">Address:</span> <span class="underline">${data.address}</span>
                 <span class="font-semibold">Mob:</span><span class="underline">${data.contactNo}</span>
                 <span class="font-semibold">Email:</span><span class="underline">${data.email}</span></p>
-                <p><span class="font-semibold">The Sum of Rupees:</span><span class="underline">${data.amountText} Only / ${data.amount}/-</span>
-                <span class="font-semibold">through:</span><span class="underline">√ RTGS/ NEFT</span></p>
-                <p><span class="font-semibold">Cheque Number:</span> <span class="underline">${data.chequeNo}</span>
+                <p><span class="font-semibold">The Sum of Rupees:</span><span class="underline">  ${data.amountText} Only</span>
+                <span class="font-semibold">through:</span><span class="underline">√ RTGS/ NEFT/ Cash/ Cheque</span></p>
+                <p><span class="font-semibold">Reference Number:</span> <span class="underline">${data.chequeNo}</span>
                 <span class="font-semibold">Credit dated:</span><span class="underline">${data.clearanceDate}</span>
                 <span class="font-semibold">drawn on Bank:</span><span class="underline">${data.bank}</span>
-                <span class="font-semibold">Branch:</span><span class="underline">${data.branch}</span> having <span class="font-semibold">ID No.:</span><span class="underline">${data.identificationNo}</span></p>
+                <span class="font-semibold">Branch:</span><span class="underline">${data.branch}</span> having <span class="font-semibold">PAN No.:</span><span class="underline">${data.identificationNo}</span></p>
             </div>
     
             <div class="mb-4 flex justify-between">
@@ -106,7 +106,7 @@ const receipt = async (data) => {
                 <p class="font-bold">Important Notes:</p>
                 <ul class="list-none pl-4 tick-list">
                     <li> Registered under the Public Trust Act, 1950, Regd. No. E All Donations to Social Activities integration(SAI) are exempted from IncomeTax for 50% Tax rebate (U/s 80G). Due to amendment made in Finance Act 1961 vide circular no 7/2010[F No. 
-                        197/21/2010-ITA-I] dated 27/10/2010,this certificate has been extended in perpetuity.</li>
+                        197/21/2010-ITA-I] dated 27/10/2010,this certificate has been extended in validity.</li>
                     <li>Overseas contributions / Foreign contribution / NRI DONATIONS are accepted through our FCRA regn no.083780858 dated 20th June 2002 can be credited to Social Activities Integration-SAI.</li>
                     <li>For Credit Card / Debit Card /Mobile Donations, use our Website.f you are making donations directly through our Website 
                         or RTGS Please intimate us through email & Call.
