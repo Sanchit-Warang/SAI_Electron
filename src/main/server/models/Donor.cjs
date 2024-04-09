@@ -53,7 +53,7 @@ donorSchema.statics.donor = async function (
     !email ||
     !contactNo
   ) {
-    throw Error('All Fields Must be Filled!')
+    throw Error('All Compulsory Fields Must be Filled!')
   }
   if (!validator.isEmail(email)) {
     throw Error('Enter a Valid Email!')
