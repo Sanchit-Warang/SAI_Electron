@@ -6,7 +6,8 @@ import {
   downloadReceipt,
   downloadEightyG,
   emailThanksLetter,
-  emailReceipt
+  emailReceipt,
+  emailEightyG,
 } from "@renderer/api/Certificate";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -78,7 +79,7 @@ export const useEmailThanksLetterMutation = () => {
   return useMutation({
     mutationFn: emailThanksLetter,
     onSuccess: async (response: AxiosResponse) => {
-      toast.success("Emailed", response.data);
+      toast.success("Thanks Letter Emailed", response.data);
       dialogClose();
     },
     onError: (data: AxiosError) => {
@@ -93,6 +94,19 @@ export const useEmailReceiptMutation = () => {
     mutationFn: emailReceipt,
     onSuccess: async (response: AxiosResponse) => {
       toast.success("Receipt Emailed Successfully", response.data);
+      dialogClose();
+    },
+    onError: (data: AxiosError) => {
+      toast.error(JSON.stringify(data.response?.data));
+    }
+  })
+}
+
+export const useEmailEightyGMutation = () => {
+  return useMutation({
+    mutationFn: emailEightyG,
+    onSuccess: async (response: AxiosResponse) => {
+      toast.success("80G Emailed Successfully", response.data);
       dialogClose();
     },
     onError: (data: AxiosError) => {

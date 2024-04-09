@@ -48,7 +48,7 @@ const dataSchema = z.object({
   submissionDate: z.date({
     required_error: "A date is required.",
   }),
-  remark: z.string(),
+  remark: z.string().optional(),
   AccountantSubmissionDate: z.date({
     required_error: "A date is required.",
   }),
@@ -61,19 +61,19 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
     resolver: zodResolver(dataSchema),
     defaultValues: {
       donorId: donorId,
-      amount: "",
-      chequeNo: "",
-      chequeDate: new Date(),
-      bank: "",
-      branch: "",
-      depositDate: new Date(),
-      clearanceDate: new Date(),
-      depositBank: "",
-      eightyG: "80G",
-      dateOfIssue: new Date(),
-      submissionDate: new Date(),
-      remark: "",
-      AccountantSubmissionDate: new Date(),
+      amount: undefined,
+      chequeNo: undefined,
+      chequeDate: undefined,
+      bank: undefined,
+      branch: undefined,
+      depositDate: undefined,
+      clearanceDate: undefined,
+      depositBank: undefined,
+      eightyG: undefined,
+      dateOfIssue: undefined,
+      submissionDate: undefined,
+      remark: undefined,
+      AccountantSubmissionDate: undefined,
     },
   });
 
@@ -162,10 +162,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -234,10 +233,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -276,10 +274,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -352,10 +349,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -394,10 +390,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>
@@ -453,10 +448,9 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
                     mode="single"
                     captionLayout="dropdown-buttons"
                     fromYear={new Date().getFullYear() - 100}
-                    toYear={new Date().getFullYear()}
+                    toYear={new Date().getFullYear() + 10}
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date()}
                     initialFocus
                   />
                 </PopoverContent>

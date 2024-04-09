@@ -44,6 +44,9 @@ export const columns: ColumnDef<Donor>[] = [
     accessorKey: "address",
     header: "Address",
     cell: ({ row }) => {
+      if(row.getValue('address') === undefined) {
+        return ''
+      }
       const val = String(row.getValue("address"));
       let formatted = val.slice(0, 20) + "...";
       if(val.length < 20) formatted = val

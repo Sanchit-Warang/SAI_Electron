@@ -2,9 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-// import { useDownloadThanksLetterMutation } from "@renderer/hooks/api/certificate";
-// import { useDownloadreceiptMutation } from "@renderer/hooks/api/certificate";
-import { useDownloadEightyGMutation } from "@renderer/hooks/api/certificate";
+import {
+  useDownloadEightyGMutation,
+  useEmailEightyGMutation,
+} from "@renderer/hooks/api/certificate";
+import { useState } from "react";
 
 import { Button } from "@renderer/components/ui/button";
 import {
@@ -37,9 +39,9 @@ type EightyGFormProps = {
 };
 
 const EightyGForm = ({ donation }: EightyGFormProps) => {
-  //   const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
-  //   const downloadReceiptMutation = useDownloadreceiptMutation();
   const downloadEightyGMutation = useDownloadEightyGMutation();
+  const emailEightyGMutation = useEmailEightyGMutation();
+  const [email, setEmail] = useState(false);
   const form = useForm<z.infer<typeof EightyGFormSchema>>({
     resolver: zodResolver(EightyGFormSchema),
     defaultValues: {
@@ -55,9 +57,12 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof EightyGFormSchema>) {
-    // console.log(values);
-    // await downloadReceiptMutation.mutateAsync(values);
-    await downloadEightyGMutation.mutateAsync(values);
+    if (email) {
+      await emailEightyGMutation.mutateAsync(values);
+    } else {
+      await downloadEightyGMutation.mutateAsync(values);
+    }
+    setEmail(false);
   }
 
   return (
@@ -146,12 +151,29 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
         />
         <Button disabled={form.formState.isSubmitting} type="submit">
           <>
-            {form.formState.isSubmitting ? (
+            {form.formState.isSubmitting && !email ? (
               <>
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
               </>
             ) : (
               <>Download 80G</>
+            )}
+          </>
+        </Button>
+        <Button
+          disabled={form.formState.isSubmitting}
+          onClick={() => {
+            setEmail(true);
+          }}
+          type="submit"
+        >
+          <>
+            {form.formState.isSubmitting && email ? (
+              <>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
+              </>
+            ) : (
+              <>Email EightyG</>
             )}
           </>
         </Button>

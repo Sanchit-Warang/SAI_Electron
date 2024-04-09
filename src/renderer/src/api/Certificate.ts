@@ -41,3 +41,7 @@ export const emailThanksLetter = async (data) => {
 export const emailReceipt = async (data) => {
   return await API.post("api/doc/generate-receipt-email", data);
 }
+
+export const emailEightyG = async (data) => {
+  return await API.post("api/doc/generate-eightyG-email", data);
+}

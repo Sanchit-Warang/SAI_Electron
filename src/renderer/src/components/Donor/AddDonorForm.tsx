@@ -28,16 +28,14 @@ import { Input } from "@renderer/components/ui/input";
 
 // Define the schema for the Donor type
 const donorSchema = z.object({
-  name: z.string(),
-  birthDate: z.date({
-    required_error: "A date of birth is required.",
-  }),
+  name: z.string().min(1),
+  birthDate: z.date(),
   email: z.string().email(),
   contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
     message: "Invalid contact number format",
   }),
-  address: z.string(),
-  identificationNo: z.string(),
+  address: z.string().optional(),
+  identificationNo: z.string().optional(),
 });
 
 const AddDonorForm = ({ name }: AddDonorFormProps) => {
@@ -50,11 +48,11 @@ const AddDonorForm = ({ name }: AddDonorFormProps) => {
     resolver: zodResolver(donorSchema),
     defaultValues: {
       name: name,
-      birthDate: new Date(),
-      email: "",
-      contactNo: "",
-      address: "",
-      identificationNo: "",
+      birthDate: undefined,
+      email: undefined,
+      contactNo: undefined,
+      address: undefined,
+      identificationNo: undefined,
     },
   });
 
@@ -81,6 +79,7 @@ const AddDonorForm = ({ name }: AddDonorFormProps) => {
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input
+                  required
                     className="bg-muted/20"
                     placeholder="Name"
                     {...field}
