@@ -1,15 +1,13 @@
 import { app, shell, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import expressApp from './server/server.cjs'; // Import the Express app
+import expressApp from "./server/server.cjs"; // Import the Express app
 import icon from "../../resources/icon.png?asset";
-
 
 const port = 3000; // Choose any port you prefer
 expressApp.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}`);
 });
-
 
 function createWindow(): void {
   // Create the browser window.
@@ -18,6 +16,7 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    icon,
     ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, "../preload/index.js"),
