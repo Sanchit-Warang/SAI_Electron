@@ -69,7 +69,7 @@ const AddDonationForm = ({ donorId }: { donorId: string }) => {
       depositDate: undefined,
       clearanceDate: undefined,
       depositBank: undefined,
-      eightyG: undefined,
+      eightyG: "80G",
       dateOfIssue: undefined,
       submissionDate: undefined,
       remark: undefined,
