@@ -28,12 +28,12 @@ const donorSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
+      // required: true,
     },
     identificationNo: {
       type: String,
       // required: true,
-      unique: true,
+      // unique: true,
     },
   },
   { timestamps: true }
@@ -51,11 +51,9 @@ donorSchema.statics.donor = async function (
     !name ||
     !birthDate ||
     !email ||
-    !contactNo ||
-    !address ||
-    !identificationNo
+    !contactNo
   ) {
-    throw Error('All Fields Must be Filled!')
+    throw Error('All Compulsory Fields Must be Filled!')
   }
   if (!validator.isEmail(email)) {
     throw Error('Enter a Valid Email!')
@@ -71,10 +69,10 @@ donorSchema.statics.donor = async function (
   if (emailexists) {
     throw Error('Email Already in Use!')
   }
-  const identificationExists = await this.findOne({ identificationNo })
-  if (identificationExists) {
-    throw Error('Identification already Exists')
-  }
+  // const identificationExists = await this.findOne({ identificationNo })
+  // if (identificationExists) {
+  //   throw Error('Identification already Exists')
+  // }
 
   const donorProfile = await this.create({
     name,

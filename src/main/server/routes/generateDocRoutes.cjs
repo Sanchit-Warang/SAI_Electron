@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const requireAuth = require('../middleware/requireAuth')
 
-const { generateThanks, generateReceipt, generateEightyG, generateEmail, emailReceipt } = require('../controllers/certificateManagement')
+const { generateThanks, generateReceipt, generateEightyG, generateEmail, emailReceipt, emailEightyG } = require('../controllers/certificateManagement')
 
 //protect routes
 router.use(requireAuth)
@@ -23,6 +23,6 @@ router.post('/generate-email', generateEmail)
 router.post('/generate-receipt-email', emailReceipt)
 
 //Send a EightyG Email
-// router.post('/generate-eightyG-email', emailEightyG)
+router.post('/generate-eightyG-email', emailEightyG)
 
 module.exports = router
