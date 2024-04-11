@@ -28,7 +28,7 @@ const generateThanks = asyncHandler(async (req, res, next) => {
     const pdfBuffer = await page.pdf({ format: 'Legal' })
 
     // Save the pdf
-    await fs.writeFileSync('thanksLetter.pdf', pdfBuffer)
+    // await fs.writeFileSync('thanksLetter.pdf', pdfBuffer)
 
     // Close the browser
     await browser.close()
@@ -52,8 +52,7 @@ const generateThanks = asyncHandler(async (req, res, next) => {
     // Set response headers to make the PDF downloadable
     res.set({
       'Content-Type': 'application/pdf',
-      'Content-Disposition':
-        'attachment; filename="thanksLetter.pdf"',
+      'Content-Disposition': 'attachment; filename=thanksLetter.pdf',
     })
 
     // Send the PDF file as response
@@ -80,7 +79,7 @@ const generateReceipt = asyncHandler(async (req, res, next) => {
     const pdfBuffer = await page.pdf({ format: 'Legal' })
 
     // Save the pdf
-    await fs.writeFileSync('receipt.pdf', pdfBuffer)
+    // await fs.writeFileSync('receipt.pdf', pdfBuffer)
 
     // Close the browser
     await browser.close()
@@ -130,7 +129,7 @@ const generateEightyG = asyncHandler(async (req, res, next) => {
     const pdfBuffer = await page.pdf({ format: 'Legal' })
 
     // Save the pdf
-    await fs.writeFileSync('eightyG.pdf', pdfBuffer)
+    // await fs.writeFileSync('eightyG.pdf', pdfBuffer)
 
     // Close the browser
     await browser.close()
@@ -225,7 +224,7 @@ const generateEmail = asyncHandler(async(req, res, next)=>{
             text: 'This is a server generated email please do not reply.',
             attachments: [
               {
-                filename: 'thanksLetter.pdf',
+                filename: data.donorName + 'thanksLetter.pdf',
                 content: pdfBuffer,
                 contentType: 'application/pdf'
               }
