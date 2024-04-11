@@ -11,7 +11,15 @@ import {
 } from "@renderer/api/Certificate";
 import { AxiosError, AxiosResponse } from "axios";
 
-export const useDownloadThanksLetterMutation = () => {
+type FileNameDetails = {
+  name: string;
+  id: string;
+};
+
+export const useDownloadThanksLetterMutation = ({
+  name,
+  id,
+}: FileNameDetails) => {
   return useMutation({
     mutationFn: downloadThanksLetter,
     onSuccess: async (response: AxiosResponse) => {
@@ -19,7 +27,7 @@ export const useDownloadThanksLetterMutation = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
-      a.download = "thanks_letter.pdf";
+      a.download = `Thanks_letter_${name}_${id}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -32,7 +40,10 @@ export const useDownloadThanksLetterMutation = () => {
   });
 };
 
-export const useDownloadreceiptMutation = () => {
+export const useDownloadreceiptMutation = ({
+  name,
+  id,
+}: FileNameDetails) => {
   return useMutation({
     mutationFn: downloadReceipt,
     onSuccess: async (response: AxiosResponse) => {
@@ -40,7 +51,7 @@ export const useDownloadreceiptMutation = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
-      a.download = "receipt.pdf";
+      a.download = `Receipt_${name}_${id}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -53,7 +64,10 @@ export const useDownloadreceiptMutation = () => {
   });
 };
 
-export const useDownloadEightyGMutation = () => {
+export const useDownloadEightyGMutation = ({
+  name,
+  id,
+}: FileNameDetails) => {
   return useMutation({
     mutationFn: downloadEightyG,
     onSuccess: async (response: AxiosResponse) => {
@@ -61,7 +75,7 @@ export const useDownloadEightyGMutation = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
-      a.download = "eightyG.pdf";
+      a.download = `EightyG_${name}_${id}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -73,7 +87,6 @@ export const useDownloadEightyGMutation = () => {
     },
   });
 };
-
 
 export const useEmailThanksLetterMutation = () => {
   return useMutation({
@@ -88,7 +101,6 @@ export const useEmailThanksLetterMutation = () => {
   });
 };
 
-
 export const useEmailReceiptMutation = () => {
   return useMutation({
     mutationFn: emailReceipt,
@@ -98,9 +110,9 @@ export const useEmailReceiptMutation = () => {
     },
     onError: (data: AxiosError) => {
       toast.error(JSON.stringify(data.response?.data));
-    }
-  })
-}
+    },
+  });
+};
 
 export const useEmailEightyGMutation = () => {
   return useMutation({
@@ -111,6 +123,6 @@ export const useEmailEightyGMutation = () => {
     },
     onError: (data: AxiosError) => {
       toast.error(JSON.stringify(data.response?.data));
-    }
-  })
-}
+    },
+  });
+};

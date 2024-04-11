@@ -41,6 +41,7 @@ const formSchema = z.object({
 type ThanksLetterFormProps = {
   name: string;
   id: string;
+  donationId: string;
   address: string;
   amount: number;
   donorEmail: string;
@@ -49,11 +50,12 @@ type ThanksLetterFormProps = {
 const ThanksLetterForm = ({
   name,
   id,
+  donationId,
   address,
   amount,
   donorEmail,
 }: ThanksLetterFormProps) => {
-  const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
+  const downloadThanksLetterMutation = useDownloadThanksLetterMutation({name, id: donationId});
   const emailThanksLetterMutation = useEmailThanksLetterMutation();
   const [email, setEmail] = useState(false);
 
@@ -150,7 +152,7 @@ const ThanksLetterForm = ({
           name="donationAmount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Donantions Amount</FormLabel>
+              <FormLabel>Donations Amount</FormLabel>
               <FormControl>
                 <Input type="number" className="bg-muted/20" {...field} />
               </FormControl>

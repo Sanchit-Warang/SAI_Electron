@@ -4,7 +4,6 @@ import { useAuthStore } from "@renderer/zustand/authStore";
 
 const API = axios.create({
   baseURL: "https://sai-server.kjsieit.com",
-  // baseURL: "https://sai-hosting.onrender.com",
 });
 
 API.interceptors.request.use(function (config) {
@@ -21,9 +20,7 @@ API.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      // const navigate = useNavigate();
       useAuthStore.getState().logout();
-      // navigate("/login");
     }
     return Promise.reject(error);
   },

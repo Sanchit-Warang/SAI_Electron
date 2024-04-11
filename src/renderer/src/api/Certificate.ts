@@ -1,6 +1,6 @@
 import { API } from "./api";
-import { ReceiptFormSchemaType } from "@renderer/components/Certificates/ReceiptForm";
-import { EightyGFormSchemaType } from "@renderer/components/Certificates/EightyGForm";
+// import { ReceiptFormSchemaType } from "@renderer/components/Certificates/ReceiptForm";
+// import { EightyGFormSchemaType } from "@renderer/components/Certificates/EightyGForm";
 import numWords from "num-words";
 
 export const downloadThanksLetter = async (data) => {
@@ -9,7 +9,7 @@ export const downloadThanksLetter = async (data) => {
   });
 };
 
-export const downloadReceipt = async (data: ReceiptFormSchemaType) => {
+export const downloadReceipt = async (data) => {
   return await API.post(
     "api/doc/generate-receipt",
     {
@@ -23,7 +23,7 @@ export const downloadReceipt = async (data: ReceiptFormSchemaType) => {
   );
 };
 
-export const downloadEightyG = async (data: EightyGFormSchemaType) => {
+export const downloadEightyG = async (data) => {
   return await API.post(
     "api/doc/generate-eightyG",
     { ...data, amountText: numWords(+data.amount) },

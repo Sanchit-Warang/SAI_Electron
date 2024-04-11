@@ -39,7 +39,10 @@ type EightyGFormProps = {
 };
 
 const EightyGForm = ({ donation }: EightyGFormProps) => {
-  const downloadEightyGMutation = useDownloadEightyGMutation();
+  const downloadEightyGMutation = useDownloadEightyGMutation({
+    name: donation.donorId?.name ? donation.donorId?.name : "Donor",
+    id: donation._id,
+  });
   const emailEightyGMutation = useEmailEightyGMutation();
   const [email, setEmail] = useState(false);
   const form = useForm<z.infer<typeof EightyGFormSchema>>({

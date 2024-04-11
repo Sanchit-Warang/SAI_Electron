@@ -3,7 +3,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 // import { useDownloadThanksLetterMutation } from "@renderer/hooks/api/certificate";
-import { useDownloadreceiptMutation, useEmailReceiptMutation } from "@renderer/hooks/api/certificate";
+import {
+  useDownloadreceiptMutation,
+  useEmailReceiptMutation,
+} from "@renderer/hooks/api/certificate";
 import { useState } from "react";
 
 import { Button } from "@renderer/components/ui/button";
@@ -32,9 +35,12 @@ const ReceiptFormSchema = z.object({
   donorId: z.string(),
   name: z.string(),
   email: z.string().email(),
-  contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
-    message: "Invalid contact number format",
-  }),
+  contactNo: z
+    .string()
+    .refine((value) => /^\d{10}$/g.test(value), {
+      message: "Invalid contact number format",
+    })
+    ,
   address: z.string(),
   identificationNo: z.string(),
   amount: z.string(),
@@ -52,9 +58,12 @@ type ReceiptFormProps = {
 
 const ReceiptForm = ({ donation }: ReceiptFormProps) => {
   //   const downloadThanksLetterMutation = useDownloadThanksLetterMutation();
-  const downloadReceiptMutation = useDownloadreceiptMutation();
+  const downloadReceiptMutation = useDownloadreceiptMutation({
+    name: donation.donorId?.name ? donation.donorId?.name : "Donor",
+    id: donation._id,
+  });
   const emailReceiptMutation = useEmailReceiptMutation();
-  const [email, setEmail] = useState(false)
+  const [email, setEmail] = useState(false);
 
   const form = useForm<z.infer<typeof ReceiptFormSchema>>({
     resolver: zodResolver(ReceiptFormSchema),
@@ -77,7 +86,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
   async function onSubmit(values: z.infer<typeof ReceiptFormSchema>) {
     // console.log(values);
     // await downloadReceiptMutation.mutateAsync(values);
-    if(email === true) {
+    if (email === true) {
       await emailReceiptMutation.mutateAsync(values);
     } else {
       await downloadReceiptMutation.mutateAsync(values);
@@ -262,23 +271,22 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
           </>
         </Button>
         <Button
-            disabled={form.formState.isSubmitting}
-            onClick={() => {
-              setEmail(true);
-            }}
-            type="submit"
-          >
-            <>
-              {form.formState.isSubmitting && email ? (
-                <>
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
-                  Submitting
-                </>
-              ) : (
-                <>Email Receipt</>
-              )}
-            </>
-          </Button>
+          disabled={form.formState.isSubmitting}
+          onClick={() => {
+            setEmail(true);
+          }}
+          type="submit"
+        >
+          <>
+            {form.formState.isSubmitting && email ? (
+              <>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Submitting
+              </>
+            ) : (
+              <>Email Receipt</>
+            )}
+          </>
+        </Button>
       </form>
     </Form>
   );
