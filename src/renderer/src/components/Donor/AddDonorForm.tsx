@@ -31,9 +31,7 @@ const donorSchema = z.object({
   name: z.string().min(1),
   birthDate: z.date(),
   email: z.string().email(),
-  contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
-    message: "Invalid contact number format",
-  }),
+  contactNo: z.string().optional(),
   address: z.string().optional(),
   identificationNo: z.string().optional(),
 });

@@ -24,12 +24,13 @@ const EightyGFormSchema = z.object({
   donorId: z.string(),
   name: z.string(),
   email: z.string().email(),
-  contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
-    message: "Invalid contact number format",
-  }),
+  // contactNo: z.string().refine((value) => /^\d{10}$/g.test(value), {
+  //   message: "Invalid contact number format",
+  // }),
   address: z.string(),
   identificationNo: z.string(),
   amount: z.string(),
+  receiptNo: z.string()
 });
 
 export type EightyGFormSchemaType = z.infer<typeof EightyGFormSchema>;
@@ -51,10 +52,11 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
       donorId: donation.donorId?._id,
       name: donation.donorId?.name,
       email: donation.donorId?.email,
-      contactNo: donation.donorId?.contactNo,
+      // contactNo: donation.donorId?.contactNo,
       address: donation.donorId?.address,
       identificationNo: donation.donorId?.identificationNo,
       amount: donation.amount.toString(),
+      receiptNo: ''
     },
   });
 
@@ -100,7 +102,7 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="contactNo"
           render={({ field }) => (
@@ -112,7 +114,7 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="address"
@@ -145,6 +147,19 @@ const EightyGForm = ({ donation }: EightyGFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Amount</FormLabel>
+              <FormControl>
+                <Input className="bg-muted/20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="receiptNo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Receipt No</FormLabel>
               <FormControl>
                 <Input className="bg-muted/20" {...field} />
               </FormControl>

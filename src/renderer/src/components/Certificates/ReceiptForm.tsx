@@ -35,12 +35,11 @@ const ReceiptFormSchema = z.object({
   donorId: z.string(),
   name: z.string(),
   email: z.string().email(),
-  contactNo: z
-    .string()
-    .refine((value) => /^\d{10}$/g.test(value), {
-      message: "Invalid contact number format",
-    })
-    ,
+  // contactNo: z
+    // .string()
+    // .refine((value) => /^\d{10}$/g.test(value), {
+    //   message: "Invalid contact number format",
+    // })
   address: z.string(),
   identificationNo: z.string(),
   amount: z.string(),
@@ -48,6 +47,7 @@ const ReceiptFormSchema = z.object({
   branch: z.string(),
   clearanceDate: z.date(),
   chequeNo: z.string(),
+  receiptNo: z.string()
 });
 
 export type ReceiptFormSchemaType = z.infer<typeof ReceiptFormSchema>;
@@ -71,7 +71,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
       donorId: donation.donorId?._id,
       name: donation.donorId?.name,
       email: donation.donorId?.email,
-      contactNo: donation.donorId?.contactNo,
+      // contactNo: donation.donorId?.contactNo,
       address: donation.donorId?.address,
       identificationNo: donation.donorId?.identificationNo,
       amount: donation.amount.toString(),
@@ -79,6 +79,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
       branch: donation.branch,
       clearanceDate: new Date(donation.clearanceDate),
       chequeNo: donation.chequeNo,
+      receiptNo: ''
     },
   });
 
@@ -121,19 +122,6 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
               <FormLabel>Donor Email</FormLabel>
               <FormControl>
                 <Input type="email" className="bg-muted/20" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="contactNo"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Donor Contact</FormLabel>
-              <FormControl>
-                <Input className="bg-muted/20" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -252,6 +240,19 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cheque No</FormLabel>
+              <FormControl>
+                <Input className="bg-muted/20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="receiptNo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Receipt No</FormLabel>
               <FormControl>
                 <Input className="bg-muted/20" {...field} />
               </FormControl>

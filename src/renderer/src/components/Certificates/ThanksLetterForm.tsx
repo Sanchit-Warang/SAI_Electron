@@ -36,6 +36,8 @@ const formSchema = z.object({
       required_error: "You need to select a donation type.",
     },
   ),
+  receiptNo: z.string(),
+  financialYear: z.string()
 });
 
 type ThanksLetterFormProps = {
@@ -45,6 +47,8 @@ type ThanksLetterFormProps = {
   address: string;
   amount: number;
   donorEmail: string;
+  receiptNo: string;
+  financialYear: string
 };
 
 const ThanksLetterForm = ({
@@ -67,6 +71,8 @@ const ThanksLetterForm = ({
       donationAmount: amount,
       email: donorEmail,
       type: "educationalSupport",
+      receiptNo: "",
+      financialYear: ""
     },
   });
 
@@ -155,6 +161,32 @@ const ThanksLetterForm = ({
               <FormLabel>Donations Amount</FormLabel>
               <FormControl>
                 <Input type="number" className="bg-muted/20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="receiptNo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Receipt No</FormLabel>
+              <FormControl>
+                <Input type="text" className="bg-muted/20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="financialYear"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Financial Year</FormLabel>
+              <FormControl>
+                <Input type="text" className="bg-muted/20" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
