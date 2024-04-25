@@ -47,7 +47,8 @@ const ReceiptFormSchema = z.object({
   branch: z.string(),
   clearanceDate: z.date(),
   chequeNo: z.string(),
-  receiptNo: z.string()
+  receiptNo: z.string(),
+  contactNo: z.string()
 });
 
 export type ReceiptFormSchemaType = z.infer<typeof ReceiptFormSchema>;
@@ -71,7 +72,7 @@ const ReceiptForm = ({ donation }: ReceiptFormProps) => {
       donorId: donation.donorId?._id,
       name: donation.donorId?.name,
       email: donation.donorId?.email,
-      // contactNo: donation.donorId?.contactNo,
+      contactNo: donation.donorId?.contactNo,
       address: donation.donorId?.address,
       identificationNo: donation.donorId?.identificationNo,
       amount: donation.amount.toString(),
